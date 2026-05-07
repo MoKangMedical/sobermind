@@ -1,15 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useAuth } from '@/components/AuthProvider';
-import Navbar from '@/components/Navbar';
+import { useState } from 'react';
 
 export default function Home() {
-  const { user } = useAuth();
-
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <NavbarStatic />
 
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-24 text-center">
@@ -32,29 +29,18 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
-          {user ? (
-            <Link
-              href="/daily"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
-            >
-              开始今日日课
-            </Link>
-          ) : (
-            <>
-              <Link
-                href="/register"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
-              >
-                开始清醒之旅
-              </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-ink rounded-xl text-lg font-medium border border-bamboo hover:border-sage transition-colors"
-              >
-                已有账号，登录
-              </Link>
-            </>
-          )}
+          <Link
+            href="/daily"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
+          >
+            开始今日日课
+          </Link>
+          <Link
+            href="/categories"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-ink rounded-xl text-lg font-medium border border-bamboo hover:border-sage transition-colors"
+          >
+            浏览全部课程
+          </Link>
         </div>
 
         {/* Stats */}
@@ -89,13 +75,13 @@ export default function Home() {
               },
               {
                 icon: '✍️',
-                title: '反思打卡',
-                desc: '每课一道反思问题。你的回答就是你的修行。写下来，你就不再只是「知道」了——你在「做到」。',
+                title: '深度阅读 + 练习',
+                desc: '每课 4000+ 字深度阅读，配 3 道可执行练习和 3 条自我考核标准。读、练、考三位一体。',
               },
               {
-                icon: '📊',
-                title: '持续追踪',
-                desc: '打卡日历记录你的每一天。连续打卡、累计进度、成长曲线——看得见的清醒之路。',
+                icon: '🧠',
+                title: 'AI 辅导（可选）',
+                desc: '部署后端后，可接入 DeepSeek API 对每天打卡做智能分析——评分、关键词、深层追问。',
               },
             ].map((f, i) => (
               <div key={i} className="text-center p-6" style={{ animationDelay: `${i * 0.1}s` }}>
@@ -116,21 +102,10 @@ export default function Home() {
         <p className="text-muted text-center mb-12">从不同角度修炼清醒的人生</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {[
-            { name: '藏拙守拙', icon: '🎭', desc: '处世智慧' },
-            { name: '知行合一', icon: '⚡', desc: '行动哲学' },
-            { name: '情绪掌控', icon: '🧘', desc: '斯多葛哲学' },
-            { name: '深度关系', icon: '🤝', desc: '人际关系' },
-            { name: '自我觉察', icon: '🔍', desc: '正念冥想' },
-            { name: '极简之道', icon: '🍃', desc: '断舍离' },
-            { name: '逆境成长', icon: '🔥', desc: '反脆弱' },
-            { name: '心流状态', icon: '💫', desc: '专注力' },
-            { name: '复利思维', icon: '📈', desc: '长期主义' },
-            { name: '感恩练习', icon: '🙏', desc: '积极心理学' },
-          ].map(c => (
+          {CATEGORIES.map(c => (
             <Link
               key={c.name}
-              href={`/categories?cat=${encodeURIComponent(c.name)}`}
+              href={`/categories/${encodeURIComponent(c.name)}`}
               className="flex flex-col items-center p-4 rounded-xl bg-white border border-bamboo/30 hover:border-sage/40 hover:shadow-sm transition-all group text-center"
             >
               <span className="text-2xl mb-2 group-hover:scale-110 transition-transform">{c.icon}</span>
@@ -152,25 +127,65 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      {!user && (
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 text-center">
-          <h2 className="font-serif text-3xl font-bold text-ink mb-4">准备好了吗？</h2>
-          <p className="text-muted mb-8">每天十分钟，用365天，修炼一个清醒的自己。</p>
-          <Link
-            href="/register"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
-          >
-            🌿 免费开始
-          </Link>
-        </section>
-      )}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 text-center">
+        <h2 className="font-serif text-3xl font-bold text-ink mb-4">准备好了吗？</h2>
+        <p className="text-muted mb-8">每天十分钟，用365天，修炼一个清醒的自己。</p>
+        <Link
+          href="/daily"
+          className="inline-flex items-center gap-2 px-10 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
+        >
+          🌿 开始阅读
+        </Link>
+      </section>
 
       {/* Footer */}
       <footer className="border-t border-bamboo/30 py-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center text-sm text-muted">
-          <p>人间清醒 SoberMind — 把智慧变成生活</p>
+          <p>SoberMind 清醒日课 — 把智慧变成生活</p>
         </div>
       </footer>
     </div>
+  );
+}
+
+// ---- Shared components ----
+
+const CATEGORIES = [
+  { name: '知行合一', icon: '⚡', desc: '行动哲学' },
+  { name: '情绪掌控', icon: '🧘', desc: '斯多葛哲学' },
+  { name: '深度关系', icon: '🤝', desc: '人际关系' },
+  { name: '自我觉察', icon: '🔍', desc: '正念冥想' },
+  { name: '极简之道', icon: '🍃', desc: '断舍离' },
+  { name: '逆境成长', icon: '🔥', desc: '反脆弱' },
+  { name: '心流状态', icon: '💫', desc: '专注力' },
+  { name: '复利思维', icon: '📈', desc: '长期主义' },
+  { name: '感恩练习', icon: '🙏', desc: '积极心理学' },
+  { name: '藏拙守拙', icon: '🎭', desc: '处世智慧' },
+];
+
+function NavbarStatic() {
+  const [open, setOpen] = useState(false);
+  return (
+    <nav className="border-b border-bamboo/30 bg-white/80 backdrop-blur sticky top-0 z-50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="text-lg font-bold text-ink flex items-center gap-2">
+          <span className="text-sage text-xl">🧠</span> 清醒日课
+        </Link>
+        <div className="hidden sm:flex items-center gap-6 text-sm">
+          <Link href="/daily" className="text-ink/70 hover:text-sage transition-colors">日课</Link>
+          <Link href="/categories" className="text-ink/70 hover:text-sage transition-colors">分类</Link>
+          <a href="https://github.com/MoKangMedical/sobermind" className="text-ink/40 hover:text-ink transition-colors">GitHub</a>
+        </div>
+        <button className="sm:hidden text-ink p-1" onClick={() => setOpen(!open)}>
+          {open ? '✕' : '☰'}
+        </button>
+      </div>
+      {open && (
+        <div className="sm:hidden border-t border-bamboo/20 px-4 py-3 flex flex-col gap-3 text-sm">
+          <Link href="/daily" onClick={() => setOpen(false)}>日课</Link>
+          <Link href="/categories" onClick={() => setOpen(false)}>分类</Link>
+        </div>
+      )}
+    </nav>
   );
 }
