@@ -34,3 +34,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local env files
+.env
+
+# database files
+*.db
+*.db-shm
+*.db-wal
+
+# temp build scripts
+build_lessons.py
+expand_lessons.py
+fix_content.py
+OUTPUT_PLAN.md
