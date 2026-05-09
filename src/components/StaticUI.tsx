@@ -14,6 +14,7 @@ export const CATEGORIES = [
   { name: '复利思维', icon: '📈', desc: '长期主义' },
   { name: '感恩练习', icon: '🙏', desc: '积极心理学' },
   { name: '藏拙守拙', icon: '🎭', desc: '处世智慧' },
+  { name: '高级生命观', icon: '🌌', desc: '系统运行' },
 ];
 
 export function Navbar() {
@@ -66,9 +67,23 @@ let _lessonsCache: Lesson[] | null = null;
 
 export function loadAllLessons(): Lesson[] {
   if (_lessonsCache) return _lessonsCache;
-  const dataPath = path.join(process.cwd(), 'src', 'data', 'lessons.json');
-  _lessonsCache = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-  return _lessonsCache!;
+  const dataDir = path.join(process.cwd(), 'src', 'data');
+  
+  // Load main lessons (365 days, 10 categories)
+  const mainPath = path.join(dataDir, 'lessons.json');
+  const mainLessons: Lesson[] = JSON.parse(fs.readFileSync(mainPath, 'utf8'));
+
+  // Load 高级生命观 v2 lessons (37 days) and renumber after main
+  const sgPath = path.join(dataDir, 'lessons_v2_shengguan.json');
+  let sgLessons: Lesson[] = [];
+  if (fs.existsSync(sgPath)) {
+    sgLessons = JSON.parse(fs.readFileSync(sgPath, 'utf8'));
+    const baseDay = mainLessons.length;
+    sgLessons = sgLessons.map((l, i) => ({ ...l, day_number: baseDay + i + 1 }));
+  }
+
+  _lessonsCache = [...mainLessons, ...sgLessons];
+  return _lessonsCache;
 }
 
 export function getTodayDayNumber(): number {
