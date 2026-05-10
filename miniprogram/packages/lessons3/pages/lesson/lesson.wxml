@@ -1,0 +1,123 @@
+<view class="lesson-page">
+  <view class="lesson-head">
+    <view class="lesson-pills">
+      <text class="pill">Day {{day}}</text>
+      <text class="pill category-pill" bindtap="openCategory">{{lesson.category}}</text>
+    </view>
+    <text class="detail-title">{{lesson.title}}</text>
+    <view class="quote-card">
+      <text>「{{lesson.quote}}」</text>
+      <text class="quote-author">—— {{lesson.quote_author}}</text>
+    </view>
+  </view>
+
+  <view class="audio-card card">
+    <view class="audio-top">
+      <view class="audio-heading">
+        <text class="audio-title">男声导读</text>
+        <text class="audio-voice">{{audio.voiceLabel}}</text>
+      </view>
+      <button
+        class="audio-play-button {{audioState.playing ? 'playing' : ''}}"
+        bindtap="toggleAudio"
+        disabled="{{!audio.available}}"
+        loading="{{audioState.loading}}"
+      >
+        {{audioState.playing ? '暂停' : '播放'}}
+      </button>
+    </view>
+    <view wx:if="{{audio.available}}">
+      <slider
+        class="audio-slider"
+        min="0"
+        max="{{audioState.duration || 1}}"
+        value="{{audioState.current}}"
+        step="1"
+        activeColor="#6f8f73"
+        backgroundColor="#e7ddce"
+        block-size="18"
+        bindchanging="onAudioSeeking"
+        bindchange="onAudioSeek"
+      />
+      <view class="audio-bottom">
+        <text>{{audioState.currentText}} / {{audioState.durationText}}</text>
+        <picker mode="selector" range="{{speedLabels}}" value="{{speedIndex}}" bindchange="onSpeedChange">
+          <view class="speed-pill">{{speedLabels[speedIndex]}}</view>
+        </picker>
+      </view>
+      <text wx:if="{{audioState.error}}" class="audio-error">{{audioState.error}}</text>
+    </view>
+    <view wx:else class="audio-empty">
+      <text>{{audio.statusLabel}}</text>
+    </view>
+  </view>
+
+  <view class="content-card card">
+    <text class="paragraph" wx:for="{{readingBlocks}}" wx:key="index">{{item}}</text>
+  </view>
+
+  <view class="content-card card">
+    <block wx:for="{{bodyBlocks}}" wx:key="index">
+      <text wx:if="{{item.type == 'h2'}}" class="body-heading">{{item.text}}</text>
+      <text wx:elif="{{item.type == 'h3'}}" class="body-subheading">{{item.text}}</text>
+      <text wx:else class="paragraph">{{item.text}}</text>
+    </block>
+  </view>
+
+  <view class="closing-card soft-card" wx:if="{{closingBlocks.length}}">
+    <text class="paragraph" wx:for="{{closingBlocks}}" wx:key="index">{{item}}</text>
+  </view>
+
+  <view class="section-block">
+    <text class="detail-section-title">今日练习</text>
+    <view class="exercise-card card" wx:for="{{lesson.exercises}}" wx:key="index">
+      <text class="exercise-index">{{index + 1}}</text>
+      <view class="exercise-main">
+        <text class="exercise-instruction">{{item.instruction}}</text>
+        <text class="exercise-meta">{{item.purpose}} · {{item.time_estimate}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-block">
+    <text class="detail-section-title">自我考核</text>
+    <view class="assessment-card card">
+      <checkbox-group bindchange="onCriteriaChange">
+        <label class="check-row" wx:for="{{criteria}}" wx:key="value">
+          <checkbox value="{{item.value}}" checked="{{item.checked}}" color="#6f8f73" />
+          <text>{{item.text}}</text>
+        </label>
+      </checkbox-group>
+      <view class="reflection-prompt" wx:if="{{lesson.self_assessment.reflection_prompt}}">
+        <text class="prompt-label">反思引导</text>
+        <text class="prompt-text">{{lesson.self_assessment.reflection_prompt}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-block">
+    <text class="detail-section-title">今日反思</text>
+    <view class="reflection-card card">
+      <text class="question">{{lesson.question}}</text>
+      <textarea
+        class="reflection-input"
+        value="{{reflection}}"
+        bindinput="onReflectionInput"
+        maxlength="-1"
+        auto-height
+        placeholder="写下你的思考..."
+      />
+      <button class="secondary-button save-button" bindtap="saveReflection">保存反思</button>
+    </view>
+  </view>
+
+  <button class="primary-button complete-button {{completed ? 'completed' : ''}}" bindtap="toggleComplete">
+    {{completed ? '已完成今日课程' : '标记为已完成'}}
+  </button>
+
+  <view class="lesson-nav">
+    <button class="nav-button" bindtap="goPrev">前一天</button>
+    <button class="nav-button" bindtap="openCategory">本分类</button>
+    <button class="nav-button" bindtap="goNext">后一天</button>
+  </view>
+</view>

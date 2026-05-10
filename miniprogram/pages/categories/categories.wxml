@@ -1,0 +1,25 @@
+<view class="page">
+  <view class="brand-row">
+    <view>
+      <view class="section-title page-title">课程分类</view>
+      <view class="section-subtitle">{{categories.length}} 个生命维度 · {{totalDays}} 节课程</view>
+    </view>
+  </view>
+
+  <view class="category-list">
+    <view
+      class="category-row card"
+      wx:for="{{categories}}"
+      wx:key="name"
+      data-name="{{item.name}}"
+      bindtap="openCategory"
+    >
+      <text class="category-row-icon">{{item.icon}}</text>
+      <view class="category-row-main">
+        <text class="category-row-name">{{item.name}}</text>
+        <text class="category-row-desc">{{item.desc}} · {{item.count}} 节 · Day {{item.firstDay}}-{{item.lastDay}}</text>
+      </view>
+      <text class="category-arrow">›</text>
+    </view>
+  </view>
+</view>

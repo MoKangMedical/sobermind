@@ -43,6 +43,15 @@ next-env.d.ts
 *.db-shm
 *.db-wal
 
+# generated lesson audio assets
+/audio/scripts/
+/audio/output/
+/audio/manifest.json
+/public/audio/lessons/
+
+# local WeChat DevTools settings
+/miniprogram/project.private.config.json
+
 # temp build scripts
 build_lessons.py
 expand_lessons.py

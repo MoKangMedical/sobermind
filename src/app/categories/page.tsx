@@ -23,7 +23,7 @@ export default function CategoriesPage() {
           <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink mb-3">
             课程分类
           </h1>
-          <p className="text-muted">11 个生命维度 · 365 天系统成长</p>
+          <p className="text-muted">{CATEGORIES.length} 个生命维度 · {lessons.length} 天系统成长</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">

@@ -8,9 +8,10 @@
 
 ## ✨ 特性
 
-- **365 天深度课程** — 11 大分类，每课含 4000+ 字深度阅读（开场故事、4 章哲学论述、案例分析、科学拓展、结语）
+- **402 天深度课程** — 11 大分类，每课含深度阅读、哲学论述、案例分析、科学拓展、结语
 - **每日练习** — 3 道可执行练习（含操作说明、目的、预估时间）
 - **自我考核** — 3 条考核标准 + 反思引导
+- **自然男声导读** — 可生成每节课旁白脚本和 MP3，Web 与小程序课程页都已接入播放器
 - **AI 分析** — 对接 DeepSeek API，对打卡回答做智能分析（评分、关键词、反馈、深层追问）
 - **连续打卡** — streak 追踪，可视化成长轨迹
 
@@ -59,7 +60,8 @@ src/
 │   ├── auth.ts            # JWT 认证
 │   └── db.ts              # SQLite 数据库
 └── data/
-    └── lessons.json       # 365 天课程数据
+    ├── lessons.json              # 基础课程数据
+    └── lessons_v2_shengguan.json # 高级生命观课程数据
 ```
 
 ---
@@ -72,6 +74,42 @@ src/
 4. 部署
 
 > ⚠️ Vercel 免费层 SQLite 文件不持久（/tmp 重启清空）。生产环境建议迁移至 [Turso](https://turso.tech) 或 [Neon](https://neon.tech)。
+
+---
+
+## 📱 微信小程序
+
+项目已包含原生微信小程序版本，目录为 `miniprogram/`。
+
+```bash
+npm run build:miniprogram
+```
+
+然后用微信开发者工具导入 `/Users/apple/Desktop/sobermind/miniprogram`。上传前把 `miniprogram/project.config.json` 里的 `appid` 改为正式小程序 AppID。
+
+小程序版本采用主包 + 课程正文分包：主包保留首页、今日、分类和课程摘要，长文课程内容拆到 `packages/lessons*`，方便后续上线审核和包体控制。
+
+小程序启动时会自动建立登录态。正式上线前在 `miniprogram/config/index.js` 配置 HTTPS 后端域名，后端实现 `POST /api/wechat/login`，用 `wx.login` code 换 openid 后返回业务 token。示例后端可用：
+
+```bash
+npm run wechat:login-server
+```
+
+### 课程音频
+
+生成 402 节课的旁白脚本：
+
+```bash
+npm run audio:scripts
+```
+
+生成自然男声 MP3：
+
+```bash
+OPENAI_API_KEY=你的Key npm run audio:generate -- --write --from=1 --to=402
+```
+
+默认输出到 `audio/output/lessons/`。部署 Web 时把音频上传到 CDN 或 `public/audio/lessons/`，并设置 `NEXT_PUBLIC_LESSON_AUDIO_BASE_URL`；小程序配置见 `miniprogram/README.md`。
 
 ---
 

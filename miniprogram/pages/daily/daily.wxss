@@ -1,0 +1,54 @@
+.status-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+}
+
+.daily-progress {
+  color: #8b8581;
+  font-size: 22rpx;
+}
+
+.daily-card {
+  padding: 36rpx;
+}
+
+.daily-day {
+  display: block;
+  color: #5a7358;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.daily-title {
+  display: block;
+  margin-top: 16rpx;
+  color: #26302a;
+  font-size: 48rpx;
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+.daily-category {
+  display: block;
+  margin-top: 18rpx;
+  color: #6f8f73;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.daily-excerpt {
+  display: block;
+  margin-top: 22rpx;
+  color: #766f6a;
+  font-size: 29rpx;
+  line-height: 1.7;
+}
+
+.action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  margin-top: 28rpx;
+}

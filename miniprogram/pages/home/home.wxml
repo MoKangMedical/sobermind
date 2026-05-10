@@ -1,0 +1,52 @@
+<view class="page">
+  <view class="brand-row">
+    <view class="brand">
+      <text class="brand-mark">清</text>
+      <text>清醒日课</text>
+    </view>
+    <text class="pill">{{loginStatusText}}</text>
+  </view>
+
+  <view class="login-card soft-card" bindtap="refreshLogin">
+    <text class="login-title">{{userLabel}}</text>
+    <text class="login-subtitle">点击可刷新微信登录态</text>
+  </view>
+
+  <view class="today-card card">
+    <view class="today-kicker">今日课程 · Day {{today}}</view>
+    <text class="today-title">{{todayLesson.title}}</text>
+    <text class="today-category">{{todayLesson.category}}</text>
+    <text class="today-excerpt">{{todayLesson.content}}</text>
+    <button class="primary-button today-action" bindtap="openTodayLesson">开始今日阅读</button>
+  </view>
+
+  <view class="stat-row">
+    <view class="stat-card soft-card">
+      <text class="stat-value">{{totalDays}}</text>
+      <text class="stat-label">节课程</text>
+    </view>
+    <view class="stat-card soft-card">
+      <text class="stat-value">{{categories.length}}</text>
+      <text class="stat-label">个维度</text>
+    </view>
+    <view class="stat-card soft-card">
+      <text class="stat-value">{{completedCount}}</text>
+      <text class="stat-label">已完成</text>
+    </view>
+  </view>
+
+  <view class="section-title">生命维度</view>
+  <view class="category-grid">
+    <view
+      class="category-card card"
+      wx:for="{{categories}}"
+      wx:key="name"
+      data-name="{{item.name}}"
+      bindtap="openCategory"
+    >
+      <text class="category-icon">{{item.icon}}</text>
+      <text class="category-name">{{item.name}}</text>
+      <text class="category-desc">{{item.desc}} · {{item.count}} 节</text>
+    </view>
+  </view>
+</view>

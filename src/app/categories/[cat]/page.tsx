@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { loadAllLessons, CATEGORIES } from '@/components/StaticUI';
 import { Navbar, Footer } from '@/components/StaticUI';
-import { LessonRenderer } from '@/components/LessonRenderer';
 
 export async function generateStaticParams() {
   return CATEGORIES.map(c => ({ cat: encodeURIComponent(c.name) }));

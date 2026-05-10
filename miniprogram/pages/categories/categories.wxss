@@ -1,0 +1,45 @@
+.page-title {
+  margin-top: 0;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.category-row {
+  display: flex;
+  min-height: 138rpx;
+  align-items: center;
+  padding: 24rpx;
+}
+
+.category-row-icon {
+  width: 62rpx;
+  font-size: 42rpx;
+}
+
+.category-row-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.category-row-name {
+  display: block;
+  color: #2c2c2c;
+  font-size: 31rpx;
+  font-weight: 800;
+}
+
+.category-row-desc {
+  display: block;
+  margin-top: 9rpx;
+  color: #8b8581;
+  font-size: 24rpx;
+}
+
+.category-arrow {
+  color: #b7aca1;
+  font-size: 44rpx;
+}

@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/daily/daily",
+    "pages/categories/categories",
+    "pages/category/category"
+  ],
+  "subpackages": [
+    {
+      "root": "packages/lessons1",
+      "name": "lessons1",
+      "pages": [
+        "pages/lesson/lesson"
+      ]
+    },
+    {
+      "root": "packages/lessons2",
+      "name": "lessons2",
+      "pages": [
+        "pages/lesson/lesson"
+      ]
+    },
+    {
+      "root": "packages/lessons3",
+      "name": "lessons3",
+      "pages": [
+        "pages/lesson/lesson"
+      ]
+    },
+    {
+      "root": "packages/lessons4",
+      "name": "lessons4",
+      "pages": [
+        "pages/lesson/lesson"
+      ]
+    },
+    {
+      "root": "packages/lessons5",
+      "name": "lessons5",
+      "pages": [
+        "pages/lesson/lesson"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "清醒日课",
+    "navigationBarBackgroundColor": "#FAF7F0",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FAF7F0"
+  },
+  "tabBar": {
+    "color": "#8B8581",
+    "selectedColor": "#5A7358",
+    "backgroundColor": "#FFFDF8",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/daily/daily",
+        "text": "今日"
+      },
+      {
+        "pagePath": "pages/categories/categories",
+        "text": "分类"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

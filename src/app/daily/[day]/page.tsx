@@ -2,7 +2,7 @@ import { loadAllLessons } from '@/components/StaticUI';
 import { Navbar, Footer } from '@/components/StaticUI';
 import { LessonRenderer } from '@/components/LessonRenderer';
 
-// Generate all 365 static pages at build time
+// Generate all lesson pages at build time
 export async function generateStaticParams() {
   const lessons = loadAllLessons();
   return lessons.map(l => ({ day: String(l.day_number) }));
@@ -30,7 +30,7 @@ export default function DailyByDayPage({ params }: { params: { day: string } }) 
     <div className="min-h-screen bg-warm/30">
       <Navbar />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-        <LessonRenderer lesson={lesson} />
+        <LessonRenderer lesson={lesson} totalDays={lessons.length} />
       </main>
       <Footer />
     </div>

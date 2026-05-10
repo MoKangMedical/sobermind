@@ -1,0 +1,33 @@
+.category-head {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin-bottom: 26rpx;
+}
+
+.category-head-icon {
+  display: flex;
+  width: 74rpx;
+  height: 74rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  background: #fffdf8;
+  font-size: 42rpx;
+  box-shadow: 0 10rpx 24rpx rgba(84, 70, 55, 0.06);
+}
+
+.category-head-name {
+  display: block;
+  color: #26302a;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.category-head-desc {
+  display: block;
+  margin-top: 8rpx;
+  color: #8b8581;
+  font-size: 25rpx;
+}

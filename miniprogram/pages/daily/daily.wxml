@@ -1,0 +1,24 @@
+<view class="page">
+  <view class="brand-row">
+    <view class="brand">
+      <text class="brand-mark">日</text>
+      <text>今日日课</text>
+    </view>
+    <view class="status-stack">
+      <text class="pill">{{loginStatusText}}</text>
+      <text class="daily-progress">{{progressText}}</text>
+    </view>
+  </view>
+
+  <view class="daily-card card">
+    <text class="daily-day">Day {{today}}</text>
+    <text class="daily-title">{{todayLesson.title}}</text>
+    <text class="daily-category">{{todayLesson.category}}</text>
+    <text class="daily-excerpt">{{todayLesson.content}}</text>
+  </view>
+
+  <view class="action-stack">
+    <button class="primary-button" bindtap="openLesson">进入课程</button>
+    <button class="secondary-button" bindtap="openAllCourses">浏览全部分类</button>
+  </view>
+</view>

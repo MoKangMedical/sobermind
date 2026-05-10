@@ -1,0 +1,93 @@
+.login-card {
+  margin-bottom: 20rpx;
+  padding: 22rpx 24rpx;
+}
+
+.login-title {
+  display: block;
+  color: #26302a;
+  font-size: 28rpx;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.login-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  color: #8b8581;
+  font-size: 23rpx;
+}
+
+.today-card {
+  padding: 34rpx;
+}
+
+.today-kicker {
+  display: inline-flex;
+  margin-bottom: 18rpx;
+  border-radius: 999rpx;
+  padding: 8rpx 18rpx;
+  background: rgba(124, 154, 122, 0.12);
+  color: #5a7358;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.today-title {
+  display: block;
+  color: #26302a;
+  font-size: 44rpx;
+  font-weight: 800;
+  line-height: 1.22;
+}
+
+.today-category {
+  display: block;
+  margin-top: 14rpx;
+  color: #6f8f73;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.today-excerpt {
+  display: -webkit-box;
+  margin-top: 18rpx;
+  overflow: hidden;
+  color: #766f6a;
+  font-size: 28rpx;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.today-action {
+  margin-top: 30rpx;
+}
+
+.stat-row {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.stat-card {
+  flex: 1;
+  min-height: 130rpx;
+  padding: 22rpx 12rpx;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  color: #5a7358;
+  font-size: 42rpx;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  margin-top: 14rpx;
+  color: #8b8581;
+  font-size: 23rpx;
+}

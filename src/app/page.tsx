@@ -46,8 +46,8 @@ export default function Home() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-6 sm:gap-12 max-w-md mx-auto mt-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           {[
-            { label: '日课', value: '365', sub: '全年陪伴' },
-            { label: '主题', value: '10', sub: '生命维度' },
+            { label: '日课', value: '402', sub: '全年陪伴' },
+            { label: '主题', value: '11', sub: '生命维度' },
             { label: '分钟', value: '10', sub: '每日只需' },
           ].map(s => (
             <div key={s.label} className="text-center">
@@ -97,7 +97,7 @@ export default function Home() {
       {/* Categories preview */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20">
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-center text-ink mb-4">
-          十个生命维度
+          十一个生命维度
         </h2>
         <p className="text-muted text-center mb-12">从不同角度修炼清醒的人生</p>
 
@@ -161,6 +161,7 @@ const CATEGORIES = [
   { name: '复利思维', icon: '📈', desc: '长期主义' },
   { name: '感恩练习', icon: '🙏', desc: '积极心理学' },
   { name: '藏拙守拙', icon: '🎭', desc: '处世智慧' },
+  { name: '高级生命观', icon: '🌌', desc: '系统运行' },
 ];
 
 function NavbarStatic() {

@@ -22,7 +22,7 @@ export default function DailyPage() {
     <div className="min-h-screen bg-warm/30">
       <Navbar />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-        <LessonRenderer lesson={lesson} />
+        <LessonRenderer lesson={lesson} totalDays={lessons.length} />
       </main>
       <Footer />
     </div>

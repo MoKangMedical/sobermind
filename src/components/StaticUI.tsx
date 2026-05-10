@@ -61,6 +61,14 @@ export interface Lesson {
   closing: string;
   exercises: { instruction: string; purpose: string; time_estimate: string }[];
   self_assessment: { criteria: string[]; reflection_prompt: string };
+  audio?: {
+    status?: string;
+    voice?: string;
+    voiceLabel?: string;
+    fileName?: string;
+    path?: string;
+    url?: string;
+  };
 }
 
 let _lessonsCache: Lesson[] | null = null;
@@ -90,5 +98,6 @@ export function getTodayDayNumber(): number {
   const start = new Date('2026-01-01');
   const now = new Date();
   const diffDays = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  return ((diffDays % 365) + 365) % 365 + 1;
+  const totalDays = loadAllLessons().length;
+  return ((diffDays % totalDays) + totalDays) % totalDays + 1;
 }

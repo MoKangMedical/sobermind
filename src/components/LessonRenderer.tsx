@@ -2,8 +2,20 @@
 
 import Link from 'next/link';
 import { Lesson } from './StaticUI';
+import { getLessonAudio } from '@/lib/lesson-audio';
 
-export function LessonRenderer({ lesson, showNav = true }: { lesson: Lesson; showNav?: boolean }) {
+export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; totalDays?: number }) {
+  const prevDay = lesson.day_number <= 1 ? totalDays : lesson.day_number - 1;
+  const nextDay = lesson.day_number >= totalDays ? 1 : lesson.day_number + 1;
+  const audio = lesson.audio?.url
+    ? {
+        ...getLessonAudio(lesson.day_number),
+        ...lesson.audio,
+        available: true,
+        url: lesson.audio.url,
+      }
+    : getLessonAudio(lesson.day_number);
+
   return (
     <>
       {/* Header */}
@@ -26,6 +38,21 @@ export function LessonRenderer({ lesson, showNav = true }: { lesson: Lesson; sho
           「{lesson.quote}」—— {lesson.quote_author}
         </blockquote>
       </div>
+
+      <section className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-bamboo/20 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="font-serif text-lg font-bold text-ink">男声导读</h2>
+            <p className="text-sm text-muted mt-1">{audio.voiceLabel}</p>
+          </div>
+          <span className="self-start sm:self-auto px-3 py-1 bg-sage/10 text-sage-dark rounded-full text-xs font-medium">
+            {audio.available ? '可播放' : '音频准备中'}
+          </span>
+        </div>
+        {audio.available ? (
+          <audio controls preload="none" src={audio.url} className="w-full mt-5" />
+        ) : null}
+      </section>
 
       {/* Reading (intro) */}
       <article className="prose prose-lg max-w-none mb-10">
@@ -135,7 +162,7 @@ export function LessonRenderer({ lesson, showNav = true }: { lesson: Lesson; sho
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 border-t border-bamboo/30">
         <Link
-          href={`/daily/${lesson.day_number <= 1 ? 365 : lesson.day_number - 1}`}
+          href={`/daily/${prevDay}`}
           className="text-sage hover:text-sage-dark font-medium text-sm"
         >
           ← 前一天
@@ -147,7 +174,7 @@ export function LessonRenderer({ lesson, showNav = true }: { lesson: Lesson; sho
           浏览分类
         </Link>
         <Link
-          href={`/daily/${lesson.day_number >= 365 ? 1 : lesson.day_number + 1}`}
+          href={`/daily/${nextDay}`}
           className="text-sage hover:text-sage-dark font-medium text-sm"
         >
           后一天 →
