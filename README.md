@@ -20,9 +20,9 @@
 
 ## 💼 商业化闭环
 
-- Web：每节课程内置“今日闭环”，完成考核与反思后会写入本机学习档案；`/pricing` 提供免费、年度会员和组织版方案。
+- Web：每节课程内置“今日闭环”，完成考核与反思后会写入本机学习档案；`/pricing` 提供免费、年度会员和组织版方案，并支持记录会员意向。
 - 小程序：首页承接今日课程、我的进度和会员方案；“我的”页展示完成数、连续天数和阶段旅程；“会员”页记录开通/咨询意向。
-- 后端示例：`server/wechat-login.example.js` 已包含 `POST /api/wechat/login`、`GET /api/membership/products`、`POST /api/membership/checkout`。默认 checkout 只记录意向，不触发真实扣款；接入微信支付后在该接口返回 `wx.requestPayment` 所需 `paymentParams`。
+- 后端示例：`server/wechat-login.example.js` 已包含 `POST /api/wechat/login`、`GET /api/membership/products`、`POST /api/membership/lead`、`POST /api/membership/checkout`。默认 checkout 只记录意向，不触发真实扣款；线索会写入 `.runtime/membership-leads.jsonl`；接入微信支付后在 checkout 接口返回 `wx.requestPayment` 所需 `paymentParams`。
 
 ---
 

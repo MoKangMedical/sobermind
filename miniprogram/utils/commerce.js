@@ -22,11 +22,42 @@ function saveMembership(membership) {
 }
 
 function saveIntent(product) {
-  wx.setStorageSync(config.commerce.intentStorageKey, {
+  const intent = {
     productId: product.id,
     productName: product.name,
     createdAt: Date.now(),
-  });
+  };
+  wx.setStorageSync(config.commerce.intentStorageKey, intent);
+  return intent;
+}
+
+function syncLead(product, intent) {
+  if (!config.apiBaseUrl || !config.commerce.leadPath) {
+    return Promise.resolve({
+      mode: 'lead',
+      message: '已记录开通意向。配置后端后可同步线索。',
+      product,
+    });
+  }
+
+  return request.request({
+    path: config.commerce.leadPath,
+    method: 'POST',
+    data: {
+      productId: product.id,
+      productName: product.name,
+      source: 'miniprogram-membership',
+      createdAt: intent.createdAt,
+    },
+  }).then((result) => ({
+    mode: 'lead',
+    message: (result && result.message) || '已记录开通意向。',
+    product: (result && result.product) || product,
+  })).catch(() => ({
+    mode: 'lead',
+    message: '已记录到本机，后端暂时不可用。',
+    product,
+  }));
 }
 
 function startCheckout(productId) {
@@ -35,20 +66,27 @@ function startCheckout(productId) {
     return Promise.reject(new Error('会员方案不存在'));
   }
 
-  saveIntent(product);
+  const intent = saveIntent(product);
 
-  if (!config.apiBaseUrl || !config.commerce.paymentEnabled) {
+  if (!config.apiBaseUrl) {
     return Promise.resolve({
       mode: 'lead',
-      message: '已记录开通意向。配置微信支付后可直接拉起支付。',
+      message: '已记录开通意向。配置后端后可同步线索。',
       product,
     });
+  }
+
+  if (!config.commerce.paymentEnabled) {
+    return syncLead(product, intent);
   }
 
   return request.request({
     path: config.commerce.checkoutPath,
     method: 'POST',
-    data: { productId },
+    data: {
+      productId,
+      source: 'miniprogram-checkout',
+    },
   }).then((order) => {
     if (order && order.mode === 'lead') {
       return {

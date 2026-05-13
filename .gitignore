@@ -43,6 +43,9 @@ next-env.d.ts
 *.db-shm
 *.db-wal
 
+# local runtime data
+/.runtime/
+
 # generated lesson audio assets
 /audio/scripts/
 /audio/output/

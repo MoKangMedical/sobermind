@@ -13,6 +13,7 @@ module.exports = {
   },
   commerce: {
     paymentEnabled: false,
+    leadPath: '/api/membership/lead',
     checkoutPath: '/api/membership/checkout',
     membershipStorageKey: 'sobermind:membership',
     intentStorageKey: 'sobermind:memberIntent',

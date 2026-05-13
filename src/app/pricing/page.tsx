@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { Navbar, Footer } from '@/components/StaticUI';
+import { MembershipLeadForm } from '@/components/MembershipLeadForm';
 
 const tiers = [
   {
+    id: 'free',
     name: '免费体验',
     price: '¥0',
     desc: '适合先体验课程与本机进度闭环。',
@@ -11,23 +13,33 @@ const tiers = [
     href: '/daily',
   },
   {
+    id: 'annual',
     name: '清醒会员',
     price: '¥199 / 年',
     desc: '适合希望持续完成全年课程的人。',
     features: ['阶段复盘报告', '完整音频合集下载权益', '会员专属复盘模板', '月度主题陪跑与提醒'],
     cta: '记录会员意向',
-    href: '/daily',
+    href: '#member-intent',
     highlighted: true,
   },
   {
+    id: 'organization',
     name: '组织版',
     price: '定制',
     desc: '适合企业、社群、学校做心理韧性与成长训练。',
     features: ['组织学习看板', '成员进度与完成率', '私有化课程配置', '品牌化小程序与后台'],
-    cta: '查看课程体系',
-    href: '/categories',
+    cta: '咨询组织版',
+    href: '#member-intent',
   },
 ];
+
+const leadProducts = tiers
+  .filter((tier) => tier.id !== 'free')
+  .map((tier) => ({
+    id: tier.id,
+    name: tier.name,
+    price: tier.price,
+  }));
 
 export default function PricingPage() {
   return (
@@ -82,6 +94,10 @@ export default function PricingPage() {
             ))}
           </div>
         </section>
+
+        <div className="mt-6">
+          <MembershipLeadForm products={leadProducts} />
+        </div>
       </main>
       <Footer />
     </div>

@@ -1,10 +1,13 @@
 const http = require('http');
+const fs = require('fs/promises');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 
 const PORT = Number(process.env.PORT || 8787);
 const APPID = process.env.WECHAT_MINIPROGRAM_APPID;
 const SECRET = process.env.WECHAT_MINIPROGRAM_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET || 'replace-this-before-production';
+const LEADS_FILE = process.env.MEMBERSHIP_LEADS_FILE || path.join(process.cwd(), '.runtime', 'membership-leads.jsonl');
 
 const MEMBERSHIP_PRODUCTS = [
   {
@@ -57,6 +60,34 @@ function readJson(request) {
   });
 }
 
+async function appendJsonLine(filePath, payload) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await fs.appendFile(filePath, `${JSON.stringify(payload)}\n`, 'utf8');
+}
+
+function getProduct(productId) {
+  return MEMBERSHIP_PRODUCTS.find((item) => item.id === productId);
+}
+
+function buildLead(payload, source) {
+  const product = getProduct(payload.productId);
+  if (!product) {
+    const error = new Error('会员方案不存在');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  return {
+    id: `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    product,
+    source,
+    contactName: String(payload.contactName || '').trim(),
+    contact: String(payload.contact || '').trim(),
+    note: String(payload.note || '').trim(),
+    createdAt: new Date().toISOString(),
+  };
+}
+
 async function code2Session(code) {
   if (!APPID || !SECRET) {
     throw new Error('请配置 WECHAT_MINIPROGRAM_APPID 和 WECHAT_MINIPROGRAM_SECRET');
@@ -105,19 +136,29 @@ async function handleWechatLogin(request, response) {
   });
 }
 
-async function handleMembershipCheckout(request, response) {
-  const { productId } = await readJson(request);
-  const product = MEMBERSHIP_PRODUCTS.find((item) => item.id === productId);
+async function handleMembershipLead(request, response) {
+  const payload = await readJson(request);
+  const lead = buildLead(payload, payload.source || 'web-pricing');
 
-  if (!product) {
-    sendJson(response, 400, { error: '会员方案不存在' });
-    return;
-  }
+  await appendJsonLine(LEADS_FILE, lead);
 
   sendJson(response, 200, {
     mode: 'lead',
-    orderId: `lead_${Date.now()}`,
-    product,
+    leadId: lead.id,
+    product: lead.product,
+    message: '会员意向已记录。',
+  });
+}
+
+async function handleMembershipCheckout(request, response) {
+  const payload = await readJson(request);
+  const lead = buildLead(payload, payload.source || 'miniprogram-checkout');
+  await appendJsonLine(LEADS_FILE, lead);
+
+  sendJson(response, 200, {
+    mode: 'lead',
+    orderId: lead.id,
+    product: lead.product,
     message: '示例后端已记录开通意向。接入微信支付后，请在此接口返回 wx.requestPayment 所需 paymentParams。',
   });
 }
@@ -128,12 +169,14 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  if (request.method === 'GET' && request.url === '/api/membership/products') {
+  const urlPath = request.url ? request.url.split('?')[0] : '/';
+
+  if (request.method === 'GET' && urlPath === '/api/membership/products') {
     sendJson(response, 200, { products: MEMBERSHIP_PRODUCTS });
     return;
   }
 
-  if (request.method === 'POST' && request.url === '/api/wechat/login') {
+  if (request.method === 'POST' && urlPath === '/api/wechat/login') {
     try {
       await handleWechatLogin(request, response);
     } catch (error) {
@@ -142,11 +185,20 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  if (request.method === 'POST' && request.url === '/api/membership/checkout') {
+  if (request.method === 'POST' && urlPath === '/api/membership/lead') {
+    try {
+      await handleMembershipLead(request, response);
+    } catch (error) {
+      sendJson(response, error.statusCode || 500, { error: error.message || '会员意向记录失败' });
+    }
+    return;
+  }
+
+  if (request.method === 'POST' && urlPath === '/api/membership/checkout') {
     try {
       await handleMembershipCheckout(request, response);
     } catch (error) {
-      sendJson(response, 500, { error: error.message || '会员开通失败' });
+      sendJson(response, error.statusCode || 500, { error: error.message || '会员开通失败' });
     }
     return;
   }
@@ -156,4 +208,5 @@ const server = http.createServer(async (request, response) => {
 
 server.listen(PORT, () => {
   console.log(`WeChat mini program example server listening on http://localhost:${PORT}`);
+  console.log(`Membership leads will be written to ${LEADS_FILE}`);
 });

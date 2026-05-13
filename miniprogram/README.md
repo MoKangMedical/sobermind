@@ -74,6 +74,7 @@ npm run wechat:login-server
 module.exports = {
   commerce: {
     paymentEnabled: false,
+    leadPath: '/api/membership/lead',
     checkoutPath: '/api/membership/checkout',
   },
 };
@@ -82,9 +83,10 @@ module.exports = {
 正式接入微信支付时：
 
 1. 将 `apiBaseUrl` 配置为 HTTPS 后端域名。
-2. 将 `commerce.paymentEnabled` 改为 `true`。
-3. 后端实现 `POST /api/membership/checkout`，返回 `wx.requestPayment` 需要的 `paymentParams`。
-4. 支付成功后，小程序会把会员状态写入 `sobermind:membership`，页面自动显示当前方案。
+2. 先实现 `POST /api/membership/lead` 收集开通意向，未开支付前也能沉淀线索。
+3. 将 `commerce.paymentEnabled` 改为 `true`。
+4. 后端实现 `POST /api/membership/checkout`，返回 `wx.requestPayment` 需要的 `paymentParams`。
+5. 支付成功后，小程序会把会员状态写入 `sobermind:membership`，页面自动显示当前方案。
 
 示例后端已经提供会员接口契约：
 
@@ -92,7 +94,7 @@ module.exports = {
 npm run wechat:login-server
 ```
 
-接口包括 `GET /api/membership/products` 和 `POST /api/membership/checkout`。当前 checkout 返回 lead 模式，方便上线前先收集付费意向。
+接口包括 `GET /api/membership/products`、`POST /api/membership/lead` 和 `POST /api/membership/checkout`。当前 checkout 返回 lead 模式，线索默认写入 `.runtime/membership-leads.jsonl`，方便上线前先收集付费意向。
 
 ## 重新生成课程数据
 
