@@ -4,7 +4,7 @@ const {
   rootDir,
   loadLessons,
   padDay,
-  buildNarrationText,
+  buildAudioText,
   estimateDurationSeconds,
   selectLessons,
   parseArgs,
@@ -22,7 +22,8 @@ function formatDuration(seconds) {
 
 function main() {
   const options = parseArgs(process.argv.slice(2));
-  const outDir = path.resolve(rootDir, options.out || 'audio/scripts');
+  const mode = String(options.mode || 'guide');
+  const outDir = path.resolve(rootDir, options.out || `audio/scripts/${mode}`);
   const manifestPath = path.resolve(rootDir, options.manifest || 'audio/manifest.json');
   const lessons = selectLessons(loadLessons(), options);
 
@@ -36,7 +37,7 @@ function main() {
   const items = lessons.map((lesson) => {
     const fileName = `day-${padDay(lesson.day_number)}.txt`;
     const scriptPath = path.join(outDir, fileName);
-    const text = buildNarrationText(lesson);
+    const text = buildAudioText(lesson, mode);
     fs.writeFileSync(scriptPath, `${text}\n`, 'utf8');
     const estimatedDurationSeconds = estimateDurationSeconds(text);
 
@@ -46,8 +47,9 @@ function main() {
       category: lesson.category,
       voice: 'natural-male',
       voiceLabel: '自然男声',
+      mode,
       scriptFile: path.relative(rootDir, scriptPath),
-      audioFile: `lessons/day-${padDay(lesson.day_number)}.mp3`,
+      audioFile: `lessons/day-${padDay(lesson.day_number)}.m4a`,
       chars: text.replace(/\s/g, '').length,
       estimatedDurationSeconds,
       estimatedDuration: formatDuration(estimatedDurationSeconds),
@@ -56,6 +58,7 @@ function main() {
 
   const manifest = {
     generatedAt: new Date().toISOString(),
+    mode,
     total: items.length,
     items,
   };

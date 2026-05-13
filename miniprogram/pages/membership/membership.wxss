@@ -1,0 +1,86 @@
+.hero-card {
+  margin-bottom: 22rpx;
+  padding: 32rpx;
+}
+
+.hero-title,
+.hero-desc,
+.product-name,
+.product-desc,
+.product-price,
+.product-period,
+.note-card text {
+  display: block;
+}
+
+.hero-title {
+  color: #26302a;
+  font-size: 40rpx;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.hero-desc {
+  margin-top: 16rpx;
+  color: #766f6a;
+  font-size: 27rpx;
+  line-height: 1.6;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.product-card {
+  padding: 28rpx;
+}
+
+.product-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.product-name {
+  color: #26302a;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.product-desc {
+  margin-top: 12rpx;
+  color: #766f6a;
+  font-size: 25rpx;
+  line-height: 1.55;
+}
+
+.price-box {
+  min-width: 136rpx;
+  text-align: right;
+}
+
+.product-price {
+  color: #5a7358;
+  font-size: 36rpx;
+  font-weight: 900;
+}
+
+.product-period {
+  margin-top: 6rpx;
+  color: #8b8581;
+  font-size: 22rpx;
+}
+
+.product-action {
+  margin-top: 24rpx;
+}
+
+.note-card {
+  margin-top: 24rpx;
+  padding: 22rpx;
+  color: #766f6a;
+  font-size: 24rpx;
+  line-height: 1.55;
+}

@@ -4,7 +4,7 @@ const {
   rootDir,
   loadLessons,
   padDay,
-  buildNarrationText,
+  buildAudioText,
   estimateDurationSeconds,
   selectLessons,
   parseArgs,
@@ -75,6 +75,7 @@ async function main() {
   const writeFiles = Boolean(options.write);
   const outDir = path.resolve(rootDir, options.out || 'audio/output/lessons');
   const manifestPath = path.resolve(rootDir, options.manifest || 'audio/output/manifest.json');
+  const mode = String(options.mode || 'guide');
   const voice = String(options.voice || process.env.OPENAI_TTS_VOICE || process.env.TTS_VOICE || 'onyx');
   const model = String(options.model || process.env.OPENAI_TTS_MODEL || process.env.TTS_MODEL || 'tts-1-hd');
   const delayMs = Number(options.delay || 800);
@@ -93,13 +94,14 @@ async function main() {
     model,
     voice,
     voiceLabel: '自然男声',
+    mode,
     dryRun: !writeFiles,
     total: lessons.length,
     items: [],
   };
 
   for (const lesson of lessons) {
-    const text = buildNarrationText(lesson);
+    const text = buildAudioText(lesson, mode);
     const fileName = `day-${padDay(lesson.day_number)}.mp3`;
     const outputPath = path.join(outDir, fileName);
     const item = {

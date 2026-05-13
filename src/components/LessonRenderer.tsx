@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Lesson } from './StaticUI';
 import { getLessonAudio } from '@/lib/lesson-audio';
+import { LearningLoopPanel } from './LearningLoopPanel';
 
 export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; totalDays?: number }) {
   const prevDay = lesson.day_number <= 1 ? totalDays : lesson.day_number - 1;
@@ -43,7 +44,9 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h2 className="font-serif text-lg font-bold text-ink">男声导读</h2>
-            <p className="text-sm text-muted mt-1">{audio.voiceLabel}</p>
+            <p className="text-sm text-muted mt-1">
+              {[audio.voiceLabel, audio.modeLabel, audio.durationLabel].filter(Boolean).join(' · ')}
+            </p>
           </div>
           <span className="self-start sm:self-auto px-3 py-1 bg-sage/10 text-sage-dark rounded-full text-xs font-medium">
             {audio.available ? '可播放' : '音频准备中'}
@@ -125,39 +128,14 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
         </div>
       </section>
 
-      {/* Self-assessment */}
-      <section className="mb-10">
-        <h2 className="font-serif text-2xl font-bold text-ink mb-6">✅ 自我考核</h2>
-        <div className="bg-white rounded-xl p-6 border border-bamboo/20">
-          <ul className="space-y-3 mb-4">
-            {lesson.self_assessment.criteria.map((c, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <input type="checkbox" className="mt-1 accent-sage" />
-                <span className="text-ink/80">{c}</span>
-              </li>
-            ))}
-          </ul>
-          {lesson.self_assessment.reflection_prompt && (
-            <div className="border-t border-bamboo/20 pt-4 mt-4">
-              <p className="text-sage-dark font-medium mb-2">🤔 反思引导</p>
-              <p className="text-muted">{lesson.self_assessment.reflection_prompt}</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Reflection question */}
-      <section className="mb-10">
-        <h2 className="font-serif text-2xl font-bold text-ink mb-6">💭 今日反思</h2>
-        <div className="bg-white rounded-xl p-6 border border-bamboo/20">
-          <p className="text-ink font-medium mb-4">{lesson.question}</p>
-          <textarea
-            className="w-full h-32 p-4 border border-bamboo/30 rounded-lg text-ink/80 resize-y focus:outline-none focus:border-sage/50 focus:ring-1 focus:ring-sage/20"
-            placeholder="写下你的思考…"
-          />
-          <p className="text-xs text-muted mt-2">💡 提示：在本地部署后可接入 DeepSeek AI 获得智能分析反馈</p>
-        </div>
-      </section>
+      <LearningLoopPanel
+        dayNumber={lesson.day_number}
+        title={lesson.title}
+        category={lesson.category}
+        criteria={lesson.self_assessment.criteria}
+        question={lesson.question}
+        totalDays={totalDays}
+      />
 
       {/* Navigation */}
       <div className="flex justify-between items-center pt-8 border-t border-bamboo/30">

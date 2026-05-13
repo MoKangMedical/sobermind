@@ -78,6 +78,14 @@ Page({
     wx.switchTab({ url: '/pages/categories/categories' });
   },
 
+  openProgress() {
+    wx.switchTab({ url: '/pages/progress/progress' });
+  },
+
+  openMembership() {
+    wx.navigateTo({ url: '/pages/membership/membership' });
+  },
+
   openCategory(event) {
     const { name } = event.currentTarget.dataset;
     wx.navigateTo({

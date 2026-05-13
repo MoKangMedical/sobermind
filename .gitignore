@@ -48,6 +48,7 @@ next-env.d.ts
 /audio/output/
 /audio/manifest.json
 /public/audio/lessons/
+/public/audio/manifest.json
 
 # local WeChat DevTools settings
 /miniprogram/project.private.config.json

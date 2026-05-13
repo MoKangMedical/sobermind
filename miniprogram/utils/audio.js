@@ -37,7 +37,8 @@ function getConfiguredBaseUrl() {
 
 function resolveLessonAudio(lesson) {
   const audio = lesson && lesson.audio ? lesson.audio : {};
-  const path = audio.path || `lessons/day-${padDay(lesson.day_number)}.mp3`;
+  const format = audio.format || 'm4a';
+  const path = audio.path || `lessons/day-${padDay(lesson.day_number)}.${format}`;
   const url = audio.url || joinUrl(getConfiguredBaseUrl(), path);
   const available = Boolean(url);
 
@@ -46,7 +47,8 @@ function resolveLessonAudio(lesson) {
     statusLabel: available ? '可播放' : '音频准备中',
     voice: audio.voice || 'natural-male',
     voiceLabel: audio.voiceLabel || (config.audio && config.audio.voiceLabel) || '自然男声',
-    fileName: audio.fileName || `day-${padDay(lesson.day_number)}.mp3`,
+    format,
+    fileName: audio.fileName || `day-${padDay(lesson.day_number)}.${format}`,
     path,
     url,
     available,

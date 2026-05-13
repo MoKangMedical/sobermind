@@ -27,6 +27,7 @@ export function Navbar() {
         <div className="hidden sm:flex items-center gap-6 text-sm">
           <Link href="/daily" className="text-ink/70 hover:text-sage transition-colors">日课</Link>
           <Link href="/categories" className="text-ink/70 hover:text-sage transition-colors">分类</Link>
+          <Link href="/pricing" className="text-ink/70 hover:text-sage transition-colors">会员</Link>
           <a href="https://github.com/MoKangMedical/sobermind" className="text-ink/40 hover:text-ink transition-colors">GitHub</a>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function loadAllLessons(): Lesson[] {
   if (_lessonsCache) return _lessonsCache;
   const dataDir = path.join(process.cwd(), 'src', 'data');
   
-  // Load main lessons (365 days, 10 categories)
+  // Load main lessons and advanced life-view lessons.
   const mainPath = path.join(dataDir, 'lessons.json');
   const mainLessons: Lesson[] = JSON.parse(fs.readFileSync(mainPath, 'utf8'));
 

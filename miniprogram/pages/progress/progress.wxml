@@ -1,0 +1,51 @@
+<view class="page">
+  <view class="brand-row">
+    <view class="brand">
+      <text class="brand-mark">我</text>
+      <text>我的清醒进度</text>
+    </view>
+    <text class="pill">{{membership.name}}</text>
+  </view>
+
+  <view class="progress-card card">
+    <view class="progress-top">
+      <view>
+        <text class="progress-label">全年完成</text>
+        <text class="progress-value">{{completedCount}} / {{totalDays}}</text>
+      </view>
+      <view class="progress-right">
+        <text class="progress-label">连续完成</text>
+        <text class="progress-value">{{streak}} 天</text>
+      </view>
+    </view>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progressPercent}}%;"></view>
+    </view>
+    <text class="progress-caption">已完成 {{progressPercent}}%，每一天都会留在你的本机学习档案里。</text>
+  </view>
+
+  <view class="section-title">今日闭环</view>
+  <view class="today-card card">
+    <text class="today-kicker">Day {{today}} · {{todayLesson.category}}</text>
+    <text class="today-title">{{todayLesson.title}}</text>
+    <text class="today-excerpt">{{todayLesson.content}}</text>
+    <button class="primary-button today-action" bindtap="openToday">继续今日课程</button>
+  </view>
+
+  <view class="section-title">学习路径</view>
+  <view class="journey-list">
+    <view class="journey-row soft-card" wx:for="{{journey}}" wx:key="index">
+      <text class="journey-index">{{item.index}}</text>
+      <view>
+        <text class="journey-title">{{item.title}}</text>
+        <text class="journey-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="member-card card">
+    <text class="member-title">清醒会员</text>
+    <text class="member-desc">阶段复盘、音频合集、会员模板、组织学习看板，构成从内容到付费服务的商业化闭环。</text>
+    <button class="secondary-button member-action" bindtap="openMembership">查看会员方案</button>
+  </view>
+</view>

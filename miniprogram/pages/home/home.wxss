@@ -91,3 +91,37 @@
   color: #8b8581;
   font-size: 23rpx;
 }
+
+.loop-card {
+  margin-top: 20rpx;
+  padding: 30rpx;
+}
+
+.loop-title,
+.loop-desc {
+  display: block;
+}
+
+.loop-title {
+  color: #26302a;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.loop-desc {
+  margin-top: 12rpx;
+  color: #766f6a;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.loop-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.loop-button {
+  flex: 1;
+  margin: 0;
+}

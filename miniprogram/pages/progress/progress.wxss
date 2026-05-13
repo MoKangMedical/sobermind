@@ -1,0 +1,148 @@
+.progress-card {
+  padding: 30rpx;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.progress-right {
+  text-align: right;
+}
+
+.progress-label {
+  display: block;
+  color: #8b8581;
+  font-size: 24rpx;
+}
+
+.progress-value {
+  display: block;
+  margin-top: 8rpx;
+  color: #26302a;
+  font-size: 42rpx;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.progress-track {
+  height: 16rpx;
+  margin-top: 28rpx;
+  overflow: hidden;
+  border-radius: 999rpx;
+  background: #eadfce;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: #6f8f73;
+}
+
+.progress-caption {
+  display: block;
+  margin-top: 18rpx;
+  color: #766f6a;
+  font-size: 25rpx;
+  line-height: 1.55;
+}
+
+.today-card {
+  padding: 28rpx;
+}
+
+.today-kicker,
+.today-title,
+.today-excerpt {
+  display: block;
+}
+
+.today-kicker {
+  color: #5a7358;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.today-title {
+  margin-top: 12rpx;
+  color: #26302a;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.today-excerpt {
+  display: -webkit-box;
+  margin-top: 16rpx;
+  overflow: hidden;
+  color: #766f6a;
+  font-size: 26rpx;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.today-action {
+  margin-top: 24rpx;
+}
+
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.journey-row {
+  display: flex;
+  gap: 18rpx;
+  padding: 22rpx;
+}
+
+.journey-index {
+  color: #5a7358;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.journey-title,
+.journey-desc,
+.member-title,
+.member-desc {
+  display: block;
+}
+
+.journey-title {
+  color: #26302a;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.journey-desc {
+  margin-top: 6rpx;
+  color: #8b8581;
+  font-size: 24rpx;
+}
+
+.member-card {
+  margin-top: 34rpx;
+  padding: 30rpx;
+}
+
+.member-title {
+  color: #26302a;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.member-desc {
+  margin-top: 14rpx;
+  color: #766f6a;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+
+.member-action {
+  margin-top: 24rpx;
+}

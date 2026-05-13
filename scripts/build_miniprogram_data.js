@@ -6,6 +6,7 @@ const dataDir = path.join(rootDir, 'src', 'data');
 const miniDir = path.join(rootDir, 'miniprogram');
 const audioBaseUrl = normalizeBaseUrl(process.env.MINIPROGRAM_AUDIO_BASE_URL || '');
 const audioPathPrefix = trimSlashes(process.env.LESSON_AUDIO_PATH_PREFIX || 'lessons');
+const audioExtension = trimSlashes(process.env.LESSON_AUDIO_EXTENSION || 'm4a');
 const audioVoiceLabel = process.env.LESSON_AUDIO_VOICE_LABEL || '自然男声';
 
 const categories = [
@@ -72,12 +73,13 @@ function padDay(day) {
 }
 
 function makeAudioMetadata(lesson) {
-  const fileName = `day-${padDay(lesson.day_number)}.mp3`;
+  const fileName = `day-${padDay(lesson.day_number)}.${audioExtension}`;
   const audioPath = audioPathPrefix ? `${audioPathPrefix}/${fileName}` : fileName;
   return {
     status: audioBaseUrl ? 'ready' : 'planned',
     voice: 'natural-male',
     voiceLabel: audioVoiceLabel,
+    format: audioExtension,
     fileName,
     path: audioPath,
     url: audioBaseUrl ? `${audioBaseUrl}/${audioPath}` : '',

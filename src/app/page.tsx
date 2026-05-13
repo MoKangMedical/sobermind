@@ -41,6 +41,12 @@ export default function Home() {
           >
             浏览全部课程
           </Link>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-ink rounded-xl text-lg font-medium border border-bamboo hover:border-sage transition-colors"
+          >
+            会员方案
+          </Link>
         </div>
 
         {/* Stats */}
@@ -71,12 +77,12 @@ export default function Home() {
               {
                 icon: '📖',
                 title: '每日一课',
-                desc: '365天，每天一个哲学主题。从老子到斯多葛，从王阳明到现代心理学，把人类最深的智慧变成你每天的练习。',
+                desc: '402天，每天一个哲学主题。从老子到斯多葛，从王阳明到现代心理学，把人类最深的智慧变成你每天的练习。',
               },
               {
                 icon: '✍️',
-                title: '深度阅读 + 练习',
-                desc: '每课 4000+ 字深度阅读，配 3 道可执行练习和 3 条自我考核标准。读、练、考三位一体。',
+                title: '音频 + 阅读 + 练习',
+                desc: '每课配自然男声精华导读、深度阅读、可执行练习和自我考核。听、读、练、写形成闭环。',
               },
               {
                 icon: '🧠',
@@ -88,6 +94,28 @@ export default function Home() {
                 <div className="text-4xl mb-4">{f.icon}</div>
                 <h3 className="font-serif text-xl font-bold text-ink mb-3">{f.title}</h3>
                 <p className="text-muted text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          <div>
+            <p className="text-sage-dark text-sm font-medium mb-3">学习闭环</p>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink mb-4">
+              不只看内容，而是完成一次可记录的改变
+            </h2>
+            <p className="text-muted leading-relaxed">
+              每节课都串联导读、正文、练习、自我考核、反思、完成记录和下一课入口。用户每天走完一圈，产品就获得一次留存和转化机会。
+            </p>
+          </div>
+          <div className="grid gap-3">
+            {['听 2-3 分钟男声导读', '读完整课程正文', '完成练习与自我考核', '写下反思并打卡', '查看进度并进入下一课'].map((item, index) => (
+              <div key={item} className="bg-white rounded-xl p-4 border border-bamboo/20 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full bg-sage/10 text-sage-dark flex items-center justify-center text-sm font-bold">{index + 1}</span>
+                <span className="text-ink font-medium">{item}</span>
               </div>
             ))}
           </div>
@@ -129,7 +157,7 @@ export default function Home() {
       {/* CTA */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 text-center">
         <h2 className="font-serif text-3xl font-bold text-ink mb-4">准备好了吗？</h2>
-        <p className="text-muted mb-8">每天十分钟，用365天，修炼一个清醒的自己。</p>
+        <p className="text-muted mb-8">每天十分钟，用402节日课，修炼一个清醒的自己。</p>
         <Link
           href="/daily"
           className="inline-flex items-center gap-2 px-10 py-4 bg-sage text-white rounded-xl text-lg font-medium hover:bg-sage-dark transition-colors shadow-lg shadow-sage/20"
@@ -175,6 +203,7 @@ function NavbarStatic() {
         <div className="hidden sm:flex items-center gap-6 text-sm">
           <Link href="/daily" className="text-ink/70 hover:text-sage transition-colors">日课</Link>
           <Link href="/categories" className="text-ink/70 hover:text-sage transition-colors">分类</Link>
+          <Link href="/pricing" className="text-ink/70 hover:text-sage transition-colors">会员</Link>
           <a href="https://github.com/MoKangMedical/sobermind" className="text-ink/40 hover:text-ink transition-colors">GitHub</a>
         </div>
         <button className="sm:hidden text-ink p-1" onClick={() => setOpen(!open)}>
@@ -185,6 +214,7 @@ function NavbarStatic() {
         <div className="sm:hidden border-t border-bamboo/20 px-4 py-3 flex flex-col gap-3 text-sm">
           <Link href="/daily" onClick={() => setOpen(false)}>日课</Link>
           <Link href="/categories" onClick={() => setOpen(false)}>分类</Link>
+          <Link href="/pricing" onClick={() => setOpen(false)}>会员</Link>
         </div>
       )}
     </nav>

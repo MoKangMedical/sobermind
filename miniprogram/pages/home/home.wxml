@@ -35,6 +35,15 @@
     </view>
   </view>
 
+  <view class="loop-card card">
+    <text class="loop-title">学习闭环</text>
+    <text class="loop-desc">导读、阅读、练习、反思和打卡会汇总到个人进度，会员方案可承接长期复盘与陪跑。</text>
+    <view class="loop-actions">
+      <button class="secondary-button loop-button" bindtap="openProgress">我的进度</button>
+      <button class="primary-button loop-button" bindtap="openMembership">会员方案</button>
+    </view>
+  </view>
+
   <view class="section-title">生命维度</view>
   <view class="category-grid">
     <view

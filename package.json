@@ -10,6 +10,7 @@
     "build:miniprogram": "node scripts/build_miniprogram_data.js",
     "audio:scripts": "node scripts/build_lesson_audio_scripts.js",
     "audio:generate": "node scripts/generate_lesson_audio.js",
+    "audio:generate:apple": "node scripts/generate_apple_lesson_audio.js",
     "wechat:login-server": "node server/wechat-login.example.js"
   },
   "dependencies": {

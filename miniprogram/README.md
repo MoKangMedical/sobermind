@@ -5,6 +5,8 @@
 ## 已实现
 
 - 首页：今日课程、课程总数、分类入口、已完成数
+- 我的进度：完成数、进度条、连续天数和阶段旅程
+- 会员方案：年度会员、终身会员、组织版方案与开通意向记录
 - 今日日课：按 2026-01-01 起始日期自动计算今日课程
 - 分类浏览：11 个生命维度、402 节课程摘要
 - 课程详情：长文阅读、今日练习、自我考核、反思记录、完成状态
@@ -57,6 +59,41 @@ npm run wechat:login-server
 
 示例文件：`server/wechat-login.example.js`。注意：AppSecret 只能放在后端，不能写入小程序客户端。
 
+## 会员与支付接入
+
+小程序商业化入口在：
+
+- 首页闭环卡片：`pages/home/home`
+- 我的进度页：`pages/progress/progress`
+- 会员方案页：`pages/membership/membership`
+
+默认配置不会触发真实扣款，只会把开通/咨询意向写入本地缓存：
+
+```js
+// miniprogram/config/index.js
+module.exports = {
+  commerce: {
+    paymentEnabled: false,
+    checkoutPath: '/api/membership/checkout',
+  },
+};
+```
+
+正式接入微信支付时：
+
+1. 将 `apiBaseUrl` 配置为 HTTPS 后端域名。
+2. 将 `commerce.paymentEnabled` 改为 `true`。
+3. 后端实现 `POST /api/membership/checkout`，返回 `wx.requestPayment` 需要的 `paymentParams`。
+4. 支付成功后，小程序会把会员状态写入 `sobermind:membership`，页面自动显示当前方案。
+
+示例后端已经提供会员接口契约：
+
+```bash
+npm run wechat:login-server
+```
+
+接口包括 `GET /api/membership/products` 和 `POST /api/membership/checkout`。当前 checkout 返回 lead 模式，方便上线前先收集付费意向。
+
 ## 重新生成课程数据
 
 当 `src/data/lessons.json` 或 `src/data/lessons_v2_shengguan.json` 更新后，在项目根目录执行：
@@ -77,8 +114,8 @@ npm run build:miniprogram
 课程数据会为每一天生成音频元数据，默认文件路径为：
 
 ```text
-lessons/day-001.mp3
-lessons/day-002.mp3
+lessons/day-001.m4a
+lessons/day-002.m4a
 ...
 ```
 
@@ -88,13 +125,19 @@ lessons/day-002.mp3
 npm run audio:scripts
 ```
 
-生成自然男声 MP3 前，先在环境变量中提供 TTS Key。默认使用 OpenAI TTS，男声 voice 为 `onyx`，也可以通过 `OPENAI_TTS_VOICE` 覆盖：
+生成本机自然男声 M4A：
+
+```bash
+npm run audio:generate:apple -- --write --from=1 --to=402
+```
+
+生成 OpenAI 自然男声 MP3 前，先在环境变量中提供 TTS Key。默认使用 OpenAI TTS，男声 voice 为 `onyx`，也可以通过 `OPENAI_TTS_VOICE` 覆盖：
 
 ```bash
 OPENAI_API_KEY=你的Key npm run audio:generate -- --write --from=1 --to=402
 ```
 
-生成后的 MP3 默认在 `audio/output/lessons/`。正式上线建议上传到 HTTPS CDN 或对象存储，然后配置：
+本机 M4A 默认在 `public/audio/lessons/`，OpenAI MP3 默认在 `audio/output/lessons/`。正式上线建议上传 `public/audio/` 到 HTTPS CDN 或对象存储，然后配置：
 
 ```js
 // miniprogram/config/index.js
@@ -118,7 +161,7 @@ MINIPROGRAM_AUDIO_BASE_URL=https://cdn.your-domain.com/sobermind/audio npm run b
 
 1. 打开微信开发者工具。
 2. 选择“导入项目”。
-3. 项目目录选择：`/Users/apple/Desktop/sobermind/miniprogram`。
+3. 项目目录选择：`/Users/apple/Desktop/OPC/sobermind/miniprogram`。
 4. 没有正式 AppID 时可先使用测试号；准备上传时，把 `project.config.json` 里的 `appid` 从 `touristappid` 改成你的小程序 AppID。
 5. 在开发者工具中编译、预览、真机调试。
 

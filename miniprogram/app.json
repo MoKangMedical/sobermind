@@ -3,7 +3,9 @@
     "pages/home/home",
     "pages/daily/daily",
     "pages/categories/categories",
-    "pages/category/category"
+    "pages/category/category",
+    "pages/progress/progress",
+    "pages/membership/membership"
   ],
   "subpackages": [
     {
@@ -65,6 +67,10 @@
       {
         "pagePath": "pages/categories/categories",
         "text": "分类"
+      },
+      {
+        "pagePath": "pages/progress/progress",
+        "text": "我的"
       }
     ]
   },

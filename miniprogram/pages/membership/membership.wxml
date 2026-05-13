@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="brand-row">
+    <view class="brand">
+      <text class="brand-mark">会</text>
+      <text>清醒会员</text>
+    </view>
+    <text class="pill">{{membership.name}}</text>
+  </view>
+
+  <view class="hero-card card">
+    <text class="hero-title">从课程内容，到长期陪跑</text>
+    <text class="hero-desc">免费用户完成每日闭环；会员获得复盘报告、音频资产、模板和组织能力。</text>
+  </view>
+
+  <view class="product-list">
+    <view class="product-card card" wx:for="{{products}}" wx:key="id">
+      <view class="product-head">
+        <view>
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-desc">{{item.desc}}</text>
+        </view>
+        <view class="price-box">
+          <text class="product-price" wx:if="{{item.price == '定制'}}">{{item.price}}</text>
+          <text class="product-price" wx:else>¥{{item.price}}</text>
+          <text class="product-period">{{item.period}}</text>
+        </view>
+      </view>
+      <button class="primary-button product-action" data-id="{{item.id}}" bindtap="startCheckout">开通 / 咨询</button>
+    </view>
+  </view>
+
+  <view class="note-card soft-card">
+    <text>当前默认记录开通意向，不会触发真实扣款。配置 HTTPS 后端和微信支付参数后，可直接通过本页拉起支付。</text>
+  </view>
+</view>

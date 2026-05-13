@@ -71,6 +71,33 @@ function buildNarrationText(lesson) {
   ].filter(Boolean).join('\n\n');
 }
 
+function buildGuideNarrationText(lesson) {
+  const actionPoints = Array.isArray(lesson.action_points)
+    ? lesson.action_points.slice(0, 3).map((item, index) => `${index + 1}，${item}`).join('。')
+    : '';
+  const exercises = Array.isArray(lesson.exercises)
+    ? lesson.exercises.slice(0, 2).map((exercise, index) => {
+      const purpose = exercise.purpose ? `，目的，是${exercise.purpose}` : '';
+      return `练习 ${index + 1}：${exercise.instruction}${purpose}`;
+    }).join('。')
+    : '';
+
+  return [
+    `第 ${lesson.day_number} 天，${lesson.title}。`,
+    `今天的主题是，${lesson.category}。`,
+    lesson.quote ? `今日引语：${lesson.quote}${lesson.quote_author ? `。${lesson.quote_author}` : ''}。` : '',
+    cleanSpokenText(lesson.content),
+    actionPoints ? `把今天的课程落实到行动里，可以从这三件小事开始：${cleanSpokenText(actionPoints)}。` : '',
+    exercises ? `如果你有更完整的时间，可以做这两个练习。${cleanSpokenText(exercises)}。` : '',
+    lesson.question ? `最后，把这个问题留给今天的自己：${cleanSpokenText(lesson.question)}。` : '',
+    '不用急着一次做到完美。把一个清醒的选择，放进今天真实的生活里。',
+  ].filter(Boolean).join('\n\n');
+}
+
+function buildAudioText(lesson, mode = 'guide') {
+  return mode === 'full' ? buildNarrationText(lesson) : buildGuideNarrationText(lesson);
+}
+
 function estimateDurationSeconds(text, charsPerMinute = 230) {
   const chars = String(text || '').replace(/\s/g, '').length;
   return Math.max(1, Math.round((chars / charsPerMinute) * 60));
@@ -114,6 +141,8 @@ module.exports = {
   loadLessons,
   padDay,
   buildNarrationText,
+  buildGuideNarrationText,
+  buildAudioText,
   estimateDurationSeconds,
   selectLessons,
   parseArgs,
