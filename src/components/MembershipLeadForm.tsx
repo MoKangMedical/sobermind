@@ -103,7 +103,7 @@ export function MembershipLeadForm({ products }: Props) {
   }
 
   return (
-    <section id="member-intent" className="bg-white rounded-2xl p-6 sm:p-8 border border-bamboo/20">
+    <section id="member-intent" className="bg-parchment rounded-2xl p-6 sm:p-8 border border-bamboo">
       <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8">
         <div>
           <p className="text-sage-dark text-sm font-medium mb-3">线索收集</p>
@@ -118,7 +118,7 @@ export function MembershipLeadForm({ products }: Props) {
             {products.map((product) => (
               <label
                 key={product.id}
-                className={`cursor-pointer rounded-xl border p-4 ${productId === product.id ? 'border-sage bg-sage/5' : 'border-bamboo/20 bg-warm/30'}`}
+                className={`cursor-pointer rounded-xl border p-4 ${productId === product.id ? 'border-sage bg-sage/5' : 'border-bamboo bg-warm/30'}`}
               >
                 <input
                   type="radio"
@@ -140,7 +140,7 @@ export function MembershipLeadForm({ products }: Props) {
               <input
                 value={contactName}
                 onChange={(event) => setContactName(event.target.value)}
-                className="w-full rounded-xl border border-bamboo/30 bg-white px-4 py-3 text-ink focus:outline-none focus:border-sage/60"
+                className="w-full rounded-xl border border-bamboo bg-cream px-4 py-3 text-ink focus:outline-none focus:border-sage/60"
                 placeholder="可选"
               />
             </label>
@@ -149,7 +149,7 @@ export function MembershipLeadForm({ products }: Props) {
               <input
                 value={contact}
                 onChange={(event) => setContact(event.target.value)}
-                className="w-full rounded-xl border border-bamboo/30 bg-white px-4 py-3 text-ink focus:outline-none focus:border-sage/60"
+                className="w-full rounded-xl border border-bamboo bg-cream px-4 py-3 text-ink focus:outline-none focus:border-sage/60"
                 placeholder="微信 / 手机 / 邮箱"
               />
             </label>
@@ -160,7 +160,7 @@ export function MembershipLeadForm({ products }: Props) {
             <textarea
               value={note}
               onChange={(event) => setNote(event.target.value)}
-              className="w-full h-24 rounded-xl border border-bamboo/30 bg-white px-4 py-3 text-ink resize-y focus:outline-none focus:border-sage/60"
+              className="w-full h-24 rounded-xl border border-bamboo bg-cream px-4 py-3 text-ink resize-y focus:outline-none focus:border-sage/60"
               placeholder="例如：个人年度会员、企业内训、社群小程序上线"
             />
           </label>
@@ -169,7 +169,7 @@ export function MembershipLeadForm({ products }: Props) {
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex justify-center rounded-xl bg-sage px-5 py-3 text-white font-medium disabled:bg-bamboo disabled:text-muted"
+              className="inline-flex justify-center rounded-xl bg-sage px-5 py-3 text-zinc-950 font-medium disabled:bg-bamboo disabled:text-muted"
             >
               {submitting ? '提交中' : '提交意向'}
             </button>

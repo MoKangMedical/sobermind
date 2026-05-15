@@ -38,10 +38,10 @@ export default function CategoryDetailPage({ params }: { params: { cat: string }
             <Link
               key={l.day_number}
               href={`/daily/${l.day_number}`}
-              className="block bg-white rounded-xl p-5 border border-bamboo/20 hover:border-sage/30 hover:shadow-sm transition-all group"
+              className="block bg-parchment rounded-xl p-5 border border-bamboo hover:border-sage/50 transition-all group"
             >
               <span className="text-xs text-sage font-medium">Day {l.day_number}</span>
-              <h3 className="font-serif text-lg font-bold text-ink mt-1 mb-2 group-hover:text-sage-dark transition-colors">
+              <h3 className="font-serif text-lg font-bold text-ink mt-1 mb-2 group-hover:text-sage transition-colors">
                 {l.title}
               </h3>
               <p className="text-xs text-muted line-clamp-2">{l.content}</p>

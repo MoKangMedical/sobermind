@@ -9,17 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#FAF7F0",
-        warm: "#F5EDE0",
-        ink: "#2C2C2C",
-        muted: "#8B8581",
-        sage: "#7C9A7A",
-        "sage-dark": "#5A7358",
-        clay: "#D4A96A",
-        "clay-light": "#F0D9B5",
-        bamboo: "#E8DCC8",
-        parchment: "#FDF8F0",
-        charcoal: "#3A3A3A",
+        cream: "#09090B",
+        warm: "#0F0F13",
+        ink: "#FAFAFA",
+        muted: "#A1A1AA",
+        sage: "#E2B64F",
+        "sage-dark": "#F4C95D",
+        clay: "#E2B64F",
+        "clay-light": "#F4C95D",
+        bamboo: "#27272A",
+        parchment: "#1C1C21",
+        charcoal: "#18181B",
       },
       fontFamily: {
         serif: ["Noto Serif SC", "STSong", "SimSun", "serif"],

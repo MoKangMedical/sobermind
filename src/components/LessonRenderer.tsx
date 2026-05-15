@@ -22,12 +22,12 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-3">
-          <span className="px-3 py-1 bg-sage/10 text-sage-dark rounded-full text-sm font-medium">
+          <span className="px-3 py-1 bg-sage/10 text-sage rounded-full text-sm font-medium border border-sage/20">
             Day {lesson.day_number}
           </span>
           <Link
             href={`/categories/${encodeURIComponent(lesson.category)}`}
-            className="px-3 py-1 bg-bamboo/20 text-ink/70 rounded-full text-sm hover:bg-bamboo/40 transition-colors"
+            className="px-3 py-1 bg-parchment text-muted rounded-full text-sm hover:text-sage transition-colors border border-bamboo"
           >
             {lesson.category}
           </Link>
@@ -35,20 +35,20 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
         <h1 className="font-serif text-3xl sm:text-4xl font-bold text-ink leading-tight mb-4">
           {lesson.title}
         </h1>
-        <blockquote className="border-l-4 border-sage/30 pl-4 py-1 text-muted italic">
+        <blockquote className="border-l-4 border-sage/50 pl-4 py-1 text-muted italic">
           「{lesson.quote}」—— {lesson.quote_author}
         </blockquote>
       </div>
 
-      <section className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-bamboo/20 mb-8">
+      <section className="bg-parchment rounded-2xl p-5 sm:p-6 border border-bamboo mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="font-serif text-lg font-bold text-ink">男声导读</h2>
+            <h2 className="font-serif text-lg font-bold text-ink">学院式男声讲解</h2>
             <p className="text-sm text-muted mt-1">
-              {[audio.voiceLabel, audio.modeLabel, audio.durationLabel].filter(Boolean).join(' · ')}
+              {[audio.voiceLabel, '导读 + 框架 + 行动题', audio.durationLabel].filter(Boolean).join(' · ')}
             </p>
           </div>
-          <span className="self-start sm:self-auto px-3 py-1 bg-sage/10 text-sage-dark rounded-full text-xs font-medium">
+          <span className="self-start sm:self-auto px-3 py-1 bg-sage/10 text-sage rounded-full text-xs font-medium border border-sage/20">
             {audio.available ? '可播放' : '音频准备中'}
           </span>
         </div>
@@ -59,7 +59,7 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
 
       {/* Reading (intro) */}
       <article className="prose prose-lg max-w-none mb-10">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-bamboo/20 mb-8">
+        <div className="bg-parchment rounded-2xl p-6 sm:p-8 border border-bamboo mb-8">
           {lesson.reading.split('\n\n').map((p, i) => (
             <p key={i} className="text-ink/80 leading-relaxed mb-3 last:mb-0">
               {p}
@@ -68,7 +68,7 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
         </div>
 
         {/* Body */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-bamboo/20 mb-8 lesson-body">
+        <div className="bg-parchment rounded-2xl p-6 sm:p-8 border border-bamboo mb-8 lesson-body">
           {lesson.body.split('\n\n').map((section, i) => {
             if (section.startsWith('## ')) {
               const title = section.replace(/^## /, '').replace(/^[一二三四五六七八九十]、/, '').trim();
@@ -95,7 +95,7 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
 
         {/* Closing */}
         {lesson.closing && (
-          <div className="bg-sage/5 rounded-2xl p-6 sm:p-8 border border-sage/10 mb-8">
+          <div className="bg-sage/5 rounded-2xl p-6 sm:p-8 border border-sage/20 mb-8">
             {lesson.closing.split('\n\n').map((p, i) => (
               <p key={i} className="text-ink/80 leading-relaxed mb-3 last:mb-0">
                 {p}
@@ -107,12 +107,12 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
 
       {/* Exercises */}
       <section className="mb-10">
-        <h2 className="font-serif text-2xl font-bold text-ink mb-6">📝 今日练习</h2>
+        <h2 className="font-serif text-2xl font-bold text-ink mb-6">📝 交互练习题</h2>
         <div className="space-y-4">
           {lesson.exercises.map((ex, i) => (
-            <div key={i} className="bg-white rounded-xl p-5 border border-bamboo/20 hover:border-sage/30 transition-colors">
+            <div key={i} className="bg-parchment rounded-xl p-5 border border-bamboo hover:border-sage/40 transition-colors">
               <div className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-sage text-white text-sm flex items-center justify-center font-bold">
+                <span className="flex-shrink-0 w-7 h-7 rounded-full bg-sage text-zinc-950 text-sm flex items-center justify-center font-bold">
                   {i + 1}
                 </span>
                 <div>
@@ -138,7 +138,7 @@ export function LessonRenderer({ lesson, totalDays = 365 }: { lesson: Lesson; to
       />
 
       {/* Navigation */}
-      <div className="flex justify-between items-center pt-8 border-t border-bamboo/30">
+      <div className="flex justify-between items-center pt-8 border-t border-bamboo">
         <Link
           href={`/daily/${prevDay}`}
           className="text-sage hover:text-sage-dark font-medium text-sm"

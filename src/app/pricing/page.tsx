@@ -58,7 +58,7 @@ export default function PricingPage() {
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`bg-white rounded-2xl p-6 border shadow-sm ${tier.highlighted ? 'border-sage/50 shadow-sage/10' : 'border-bamboo/20'}`}
+              className={`bg-parchment rounded-2xl p-6 border ${tier.highlighted ? 'border-sage/60' : 'border-bamboo'}`}
             >
               <div className="min-h-[132px]">
                 <p className="font-serif text-xl font-bold text-ink">{tier.name}</p>
@@ -75,7 +75,7 @@ export default function PricingPage() {
               </ul>
               <Link
                 href={tier.href}
-                className={`block text-center rounded-xl px-4 py-3 text-sm font-medium ${tier.highlighted ? 'bg-sage text-white' : 'bg-bamboo/20 text-ink hover:bg-bamboo/30'}`}
+                className={`block text-center rounded-xl px-4 py-3 text-sm font-medium ${tier.highlighted ? 'bg-sage text-zinc-950' : 'bg-bamboo/40 text-ink hover:bg-bamboo/70'}`}
               >
                 {tier.cta}
               </Link>
@@ -83,11 +83,11 @@ export default function PricingPage() {
           ))}
         </section>
 
-        <section className="bg-white rounded-2xl p-6 sm:p-8 border border-bamboo/20">
+        <section className="bg-parchment rounded-2xl p-6 sm:p-8 border border-bamboo">
           <h2 className="font-serif text-2xl font-bold text-ink mb-5">产品闭环</h2>
           <div className="grid sm:grid-cols-5 gap-3">
             {['进入今日课', '听男声导读', '阅读与练习', '反思打卡', '复盘与转化'].map((step, index) => (
-              <div key={step} className="rounded-xl bg-warm/40 p-4 border border-bamboo/20">
+              <div key={step} className="rounded-xl bg-warm/40 p-4 border border-bamboo">
                 <p className="text-sage font-bold text-sm">0{index + 1}</p>
                 <p className="text-ink font-medium mt-2">{step}</p>
               </div>

@@ -31,12 +31,12 @@ export default function CategoriesPage() {
             <Link
               key={cat.name}
               href={`/categories/${encodeURIComponent(cat.name)}`}
-              className="block bg-white rounded-2xl p-6 border border-bamboo/20 hover:border-sage/30 hover:shadow-md transition-all group"
+              className="block bg-parchment rounded-2xl p-6 border border-bamboo hover:border-sage/50 transition-all group"
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">{cat.icon}</span>
                 <div>
-                  <h2 className="font-serif text-xl font-bold text-ink group-hover:text-sage-dark transition-colors">
+                  <h2 className="font-serif text-xl font-bold text-ink group-hover:text-sage transition-colors">
                     {cat.name}
                   </h2>
                   <p className="text-sm text-muted">{cat.desc}</p>

@@ -15,6 +15,16 @@
 - **AI 分析** — 对接 DeepSeek API，对打卡回答做智能分析（评分、关键词、反馈、深层追问）
 - **连续打卡** — streak 追踪，可视化成长轨迹
 - **学习闭环与会员转化** — Web 与小程序都支持进度、反思、完成打卡、会员方案和开通意向记录
+- **学院式课程呈现** — 暗色底、金色强调、阶段课程卡、工具入口、三档会员路径
+
+---
+
+## 🎓 学院式呈现
+
+- 字体：正文使用 Inter / system-ui，标题使用 Noto Serif SC，形成“现代界面 + 中文学院标题”的组合。
+- 版式：首页采用“强口号 Hero → 数据指标 → 理论框架 → 阶段课程 → 互动工具 → 定价方案”的学院型信息架构。
+- 课程：每节课按“导读 + 框架 + 练习题 + 自我考核 + 反思打卡”组织，课程列表展示阶段、难度标签、时长和简介。
+- 语音：新增 `academy` 语音脚本模式，采用“开场定位 → 框架讲解 → 行动抓手 → 交互练习 → 参考检查”的讲解结构；不克隆任何具体讲师声线。
 
 ---
 
@@ -112,16 +122,22 @@ npm run wechat:login-server
 npm run audio:scripts
 ```
 
+生成学院式讲解脚本：
+
+```bash
+npm run audio:scripts -- --mode=academy --from=1 --to=402
+```
+
 生成本机自然男声 M4A（无需云端 API，默认使用 macOS `Reed (中文（中国大陆）)` 男声）：
 
 ```bash
-npm run audio:generate:apple -- --write --from=1 --to=402
+npm run audio:generate:apple -- --write --mode=academy --rate=145 --from=1 --to=402
 ```
 
 生成 OpenAI 自然男声 MP3：
 
 ```bash
-OPENAI_API_KEY=你的Key npm run audio:generate -- --write --from=1 --to=402
+OPENAI_API_KEY=你的Key npm run audio:generate -- --write --mode=academy --from=1 --to=402
 ```
 
 Apple 本机音频默认输出到 `public/audio/lessons/`，Web 课程页会自动识别并显示播放器。OpenAI 音频默认输出到 `audio/output/lessons/`。小程序上线时建议把 `public/audio/` 上传到 CDN，并在 `miniprogram/config/index.js` 配置音频域名。

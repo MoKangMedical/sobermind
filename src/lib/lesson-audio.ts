@@ -78,7 +78,7 @@ export function getLessonAudio(day: number): LessonAudio {
     fileName,
     voice: 'natural-male',
     voiceLabel: process.env.LESSON_AUDIO_VOICE_LABEL || '自然男声',
-    modeLabel: manifestItem?.mode === 'full' ? '完整朗读' : '精华导读',
+    modeLabel: manifestItem?.mode === 'full' ? '完整朗读' : manifestItem?.mode === 'academy' ? '学院式讲解' : '精华导读',
     durationLabel: manifestItem?.estimatedDuration ? `约 ${manifestItem.estimatedDuration}` : '',
     status: url ? 'ready' : 'planned',
   };

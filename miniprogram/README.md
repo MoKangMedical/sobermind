@@ -127,16 +127,22 @@ lessons/day-002.m4a
 npm run audio:scripts
 ```
 
+生成学院式讲解脚本：
+
+```bash
+npm run audio:scripts -- --mode=academy --from=1 --to=402
+```
+
 生成本机自然男声 M4A：
 
 ```bash
-npm run audio:generate:apple -- --write --from=1 --to=402
+npm run audio:generate:apple -- --write --mode=academy --rate=145 --from=1 --to=402
 ```
 
 生成 OpenAI 自然男声 MP3 前，先在环境变量中提供 TTS Key。默认使用 OpenAI TTS，男声 voice 为 `onyx`，也可以通过 `OPENAI_TTS_VOICE` 覆盖：
 
 ```bash
-OPENAI_API_KEY=你的Key npm run audio:generate -- --write --from=1 --to=402
+OPENAI_API_KEY=你的Key npm run audio:generate -- --write --mode=academy --from=1 --to=402
 ```
 
 本机 M4A 默认在 `public/audio/lessons/`，OpenAI MP3 默认在 `audio/output/lessons/`。正式上线建议上传 `public/audio/` 到 HTTPS CDN 或对象存储，然后配置：

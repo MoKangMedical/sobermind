@@ -129,7 +129,7 @@ export function LearningLoopPanel({ dayNumber, title, category, criteria, questi
         <p className="text-muted text-sm">听导读、读正文、做练习、写反思、完成打卡，形成可持续的学习反馈。</p>
       </div>
 
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-bamboo/20 shadow-sm mb-5">
+      <div className="bg-parchment rounded-2xl p-5 sm:p-6 border border-bamboo mb-5">
         <div className="flex items-center justify-between gap-4 mb-3">
           <div>
             <p className="text-sm text-muted">本机学习进度</p>
@@ -147,7 +147,7 @@ export function LearningLoopPanel({ dayNumber, title, category, criteria, questi
 
       <div className="grid gap-4 mb-5">
         {criteria.map((item, index) => (
-          <label key={item} className="flex items-start gap-3 bg-white rounded-xl p-4 border border-bamboo/20">
+          <label key={item} className="flex items-start gap-3 bg-parchment rounded-xl p-4 border border-bamboo">
             <input
               type="checkbox"
               checked={state.checkedCriteria.includes(String(index))}
@@ -159,11 +159,11 @@ export function LearningLoopPanel({ dayNumber, title, category, criteria, questi
         ))}
       </div>
 
-      <div className="bg-white rounded-xl p-5 border border-bamboo/20 mb-5">
+      <div className="bg-parchment rounded-xl p-5 border border-bamboo mb-5">
         <p className="text-sage-dark font-medium mb-2">今日反思</p>
         <p className="text-ink font-medium mb-4">{question}</p>
         <textarea
-          className="w-full h-32 p-4 border border-bamboo/30 rounded-lg text-ink/80 resize-y focus:outline-none focus:border-sage/50 focus:ring-1 focus:ring-sage/20"
+          className="w-full h-32 p-4 border border-bamboo rounded-lg bg-cream text-ink/80 resize-y focus:outline-none focus:border-sage/50 focus:ring-1 focus:ring-sage/20"
           placeholder="写下你的思考，至少 8 个字后可完成今日闭环。"
           value={state.reflection}
           onChange={(event) => updateState({ ...state, reflection: event.target.value })}
@@ -176,29 +176,29 @@ export function LearningLoopPanel({ dayNumber, title, category, criteria, questi
           type="button"
           onClick={completeLesson}
           disabled={!canComplete || isCompleted}
-          className="flex-1 inline-flex items-center justify-center px-5 py-3 rounded-xl bg-sage text-white font-medium disabled:bg-bamboo disabled:text-muted transition-colors"
+          className="flex-1 inline-flex items-center justify-center px-5 py-3 rounded-xl bg-sage text-zinc-950 font-medium disabled:bg-bamboo disabled:text-muted transition-colors"
         >
           {isCompleted ? '今日已完成' : canComplete ? '完成今日闭环' : '完成考核与反思后打卡'}
         </button>
         <Link
           href={`/daily/${dayNumber >= totalDays ? 1 : dayNumber + 1}`}
-          className="flex-1 inline-flex items-center justify-center px-5 py-3 rounded-xl border border-bamboo bg-white text-ink font-medium hover:border-sage transition-colors"
+          className="flex-1 inline-flex items-center justify-center px-5 py-3 rounded-xl border border-bamboo bg-parchment text-ink font-medium hover:border-sage transition-colors"
         >
           继续下一课
         </Link>
       </div>
 
-      <div className="mt-5 bg-sage/5 rounded-2xl p-5 border border-sage/10">
+      <div className="mt-5 bg-sage/5 rounded-2xl p-5 border border-sage/20">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <p className="font-serif text-lg font-bold text-ink">清醒会员</p>
             <p className="text-sm text-muted mt-1">解锁系统复盘、音频合集、阶段报告、社群陪跑和组织版能力。</p>
           </div>
           <div className="flex gap-3">
-            <Link href="/pricing" className="px-4 py-2 rounded-lg bg-white border border-bamboo text-sm font-medium text-ink">
+            <Link href="/pricing" className="px-4 py-2 rounded-lg bg-parchment border border-bamboo text-sm font-medium text-ink">
               查看方案
             </Link>
-            <button type="button" onClick={saveMemberIntent} className="px-4 py-2 rounded-lg bg-sage text-white text-sm font-medium">
+            <button type="button" onClick={saveMemberIntent} className="px-4 py-2 rounded-lg bg-sage text-zinc-950 text-sm font-medium">
               记录意向
             </button>
           </div>

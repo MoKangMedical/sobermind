@@ -19,16 +19,16 @@ export const CATEGORIES = [
 
 export function Navbar() {
   return (
-    <nav className="border-b border-bamboo/30 bg-white/80 backdrop-blur sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+    <nav className="border-b border-bamboo bg-cream/85 backdrop-blur sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link href="/" className="text-lg font-bold text-ink flex items-center gap-2">
-          <span className="text-sage text-xl">🧠</span> 清醒日课
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sage text-zinc-950">清</span> 清醒研究院
         </Link>
         <div className="hidden sm:flex items-center gap-6 text-sm">
-          <Link href="/daily" className="text-ink/70 hover:text-sage transition-colors">日课</Link>
-          <Link href="/categories" className="text-ink/70 hover:text-sage transition-colors">分类</Link>
-          <Link href="/pricing" className="text-ink/70 hover:text-sage transition-colors">会员</Link>
-          <a href="https://github.com/MoKangMedical/sobermind" className="text-ink/40 hover:text-ink transition-colors">GitHub</a>
+          <Link href="/daily" className="text-muted hover:text-sage transition-colors">日课</Link>
+          <Link href="/categories" className="text-muted hover:text-sage transition-colors">分类</Link>
+          <Link href="/pricing" className="text-muted hover:text-sage transition-colors">会员</Link>
+          <a href="https://github.com/MoKangMedical/sobermind" className="text-muted hover:text-sage transition-colors">GitHub</a>
         </div>
       </div>
     </nav>
@@ -37,9 +37,9 @@ export function Navbar() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-bamboo/30 py-8">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center text-sm text-muted">
-        <p>SoberMind 清醒日课 — 把智慧变成生活</p>
+    <footer className="border-t border-bamboo py-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-muted">
+        <p>SoberMind 清醒研究院 — 把智慧变成生活系统</p>
       </div>
     </footer>
   );

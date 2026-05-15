@@ -5,15 +5,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
 
 :root {
-  --bg: #FAF7F0;
-  --card: #FDF8F0;
-  --text: #2C2C2C;
-  --muted: #8B8581;
-  --accent: #7C9A7A;
-  --accent-dark: #5A7358;
-  --gold: #D4A96A;
-  --gold-light: #F0D9B5;
-  --border: #E8DCC8;
+  --bg: #09090B;
+  --card: #1C1C21;
+  --text: #FAFAFA;
+  --muted: #A1A1AA;
+  --accent: #E2B64F;
+  --accent-dark: #F4C95D;
+  --gold: #E2B64F;
+  --gold-light: #F4C95D;
+  --border: #27272A;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -35,7 +39,7 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: #3f3f46;
   border-radius: 3px;
 }
 
@@ -66,6 +70,11 @@ body {
 /* Progress bar */
 .progress-fill {
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lesson-body h2,
+.lesson-body h3 {
+  scroll-margin-top: 96px;
 }
 
 /* Streak fire animation */
