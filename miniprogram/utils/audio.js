@@ -37,7 +37,7 @@ function getConfiguredBaseUrl() {
 
 function resolveLessonAudio(lesson) {
   const audio = lesson && lesson.audio ? lesson.audio : {};
-  const format = audio.format || 'm4a';
+  const format = audio.format || 'mp3';
   const path = audio.path || `lessons/day-${padDay(lesson.day_number)}.${format}`;
   const url = audio.url || joinUrl(getConfiguredBaseUrl(), path);
   const available = Boolean(url);

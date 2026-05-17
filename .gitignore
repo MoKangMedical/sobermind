@@ -50,6 +50,7 @@ next-env.d.ts
 /audio/scripts/
 /audio/output/
 /audio/manifest.json
+/audio/audit*.json
 /public/audio/lessons/
 /public/audio/manifest.json
 

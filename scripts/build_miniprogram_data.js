@@ -6,8 +6,8 @@ const dataDir = path.join(rootDir, 'src', 'data');
 const miniDir = path.join(rootDir, 'miniprogram');
 const audioBaseUrl = normalizeBaseUrl(process.env.MINIPROGRAM_AUDIO_BASE_URL || '');
 const audioPathPrefix = trimSlashes(process.env.LESSON_AUDIO_PATH_PREFIX || 'lessons');
-const audioExtension = trimSlashes(process.env.LESSON_AUDIO_EXTENSION || 'm4a');
-const audioVoiceLabel = process.env.LESSON_AUDIO_VOICE_LABEL || '自然男声';
+const audioExtension = trimSlashes(process.env.LESSON_AUDIO_EXTENSION || 'mp3');
+const audioVoiceLabel = process.env.LESSON_AUDIO_VOICE_LABEL || 'YunyangNeural 男声';
 
 const categories = [
   { name: '知行合一', icon: '⚡', desc: '行动哲学' },

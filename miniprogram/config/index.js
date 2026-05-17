@@ -7,9 +7,9 @@ module.exports = {
   enableVisitorFallback: true,
   audio: {
     // Production example: https://cdn.your-domain.com/sobermind/audio
-    // Files are resolved as `${baseUrl}/lessons/day-001.m4a`.
+    // Files are resolved as `${baseUrl}/lessons/day-001.mp3`.
     baseUrl: '',
-    voiceLabel: '自然男声',
+    voiceLabel: 'YunyangNeural 男声',
   },
   commerce: {
     paymentEnabled: false,

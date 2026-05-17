@@ -33,7 +33,7 @@ function joinUrl(baseUrl: string, assetPath: string): string {
 
 function findLocalAudioFile(day: number): { fileName: string; path: string } | null {
   const dayLabel = padDay(day);
-  const extensions = ['m4a', 'mp3', 'aac'];
+  const extensions = ['mp3', 'm4a', 'aac'];
   for (const extension of extensions) {
     const fileName = `day-${dayLabel}.${extension}`;
     const relativePath = `lessons/${fileName}`;
@@ -66,7 +66,7 @@ export function getLessonAudio(day: number): LessonAudio {
   const manifestItem = getAudioManifestItem(day);
   const baseUrl = process.env.NEXT_PUBLIC_LESSON_AUDIO_BASE_URL || (localAudio ? '/sobermind/audio' : '');
   const pathPrefix = trimSlashes(process.env.LESSON_AUDIO_PATH_PREFIX || 'lessons');
-  const extension = process.env.LESSON_AUDIO_EXTENSION || localAudio?.fileName.split('.').pop() || 'm4a';
+  const extension = process.env.LESSON_AUDIO_EXTENSION || localAudio?.fileName.split('.').pop() || 'mp3';
   const fileName = localAudio?.fileName || `day-${padDay(day)}.${extension}`;
   const path = localAudio?.path || (pathPrefix ? `${pathPrefix}/${fileName}` : fileName);
   const url = joinUrl(baseUrl, path);
@@ -77,7 +77,7 @@ export function getLessonAudio(day: number): LessonAudio {
     path,
     fileName,
     voice: 'natural-male',
-    voiceLabel: process.env.LESSON_AUDIO_VOICE_LABEL || '自然男声',
+    voiceLabel: process.env.LESSON_AUDIO_VOICE_LABEL || 'YunyangNeural 男声',
     modeLabel: manifestItem?.mode === 'full' ? '完整朗读' : manifestItem?.mode === 'academy' ? '学院式讲解' : '精华导读',
     durationLabel: manifestItem?.estimatedDuration ? `约 ${manifestItem.estimatedDuration}` : '',
     status: url ? 'ready' : 'planned',

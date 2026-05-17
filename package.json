@@ -11,6 +11,8 @@
     "audio:scripts": "node scripts/build_lesson_audio_scripts.js",
     "audio:generate": "node scripts/generate_lesson_audio.js",
     "audio:generate:apple": "node scripts/generate_apple_lesson_audio.js",
+    "audio:generate:neural": "python3 scripts/generate_neural_lesson_audio.py",
+    "audio:audit": "python3 scripts/audit_neural_audio.py",
     "wechat:login-server": "node server/wechat-login.example.js"
   },
   "dependencies": {

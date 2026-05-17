@@ -116,31 +116,42 @@ npm run wechat:login-server
 
 ### 课程音频
 
-生成 402 节课的旁白脚本：
+推荐音频链路已经固定为：DeepSeek 生成 150-230 字课程口播稿 → `edge_tts` 使用 `zh-CN-YunyangNeural` 男声 → `ffmpeg` 响度标准化和 MP3 规格统一。
 
 ```bash
-npm run audio:scripts
+python3 -m pip install -r requirements-audio.txt
 ```
 
-生成学院式讲解脚本：
+生成 402 节 DeepSeek 口播稿 + YunyangNeural 男声 MP3：
 
 ```bash
-npm run audio:scripts -- --mode=academy --from=1 --to=402
+DEEPSEEK_API_KEY=你的Key npm run audio:generate:neural -- --write --from=1 --to=402
 ```
 
-生成本机自然男声 M4A（无需云端 API，默认使用 macOS `Reed (中文（中国大陆）)` 男声）：
+默认参数：
+
+- `voice`: `zh-CN-YunyangNeural`
+- `rate`: `-7%`
+- `pitch`: `-2Hz`
+- `ffmpeg`: `loudnorm=I=-16:TP=-1.5:LRA=9`
+- `sampleRate`: `24000Hz`
+- `channels`: `1`
+- `bitrate`: `48k`
+- `format`: `mp3`
+
+没有 DeepSeek Key 时，可用模板口播稿做本地验证：
 
 ```bash
-npm run audio:generate:apple -- --write --mode=academy --rate=145 --from=1 --to=402
+npm run audio:generate:neural -- --script-provider=template --write --day=1 --force
 ```
 
-生成 OpenAI 自然男声 MP3：
+审计音频规格：
 
 ```bash
-OPENAI_API_KEY=你的Key npm run audio:generate -- --write --mode=academy --from=1 --to=402
+npm run audio:audit -- --limit=10
 ```
 
-Apple 本机音频默认输出到 `public/audio/lessons/`，Web 课程页会自动识别并显示播放器。OpenAI 音频默认输出到 `audio/output/lessons/`。小程序上线时建议把 `public/audio/` 上传到 CDN，并在 `miniprogram/config/index.js` 配置音频域名。
+音频默认输出到 `public/audio/lessons/day-001.mp3` 这类路径，Web 课程页会优先识别 MP3。小程序上线时建议把 `public/audio/` 上传到 CDN，并在 `miniprogram/config/index.js` 配置音频域名。
 
 ---
 

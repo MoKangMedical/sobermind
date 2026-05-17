@@ -116,43 +116,54 @@ npm run build:miniprogram
 课程数据会为每一天生成音频元数据，默认文件路径为：
 
 ```text
-lessons/day-001.m4a
-lessons/day-002.m4a
+lessons/day-001.mp3
+lessons/day-002.mp3
 ...
 ```
 
-生成旁白脚本：
+推荐音频链路：DeepSeek 生成 150-230 字课程口播稿 → `edge_tts` 使用 `zh-CN-YunyangNeural` 男声 → `ffmpeg` 响度标准化和 MP3 规格统一。
 
 ```bash
-npm run audio:scripts
+python3 -m pip install -r requirements-audio.txt
 ```
 
-生成学院式讲解脚本：
+生成 402 节神经男声 MP3：
 
 ```bash
-npm run audio:scripts -- --mode=academy --from=1 --to=402
+DEEPSEEK_API_KEY=你的Key npm run audio:generate:neural -- --write --from=1 --to=402
 ```
 
-生成本机自然男声 M4A：
+默认参数：
+
+- `voice`: `zh-CN-YunyangNeural`
+- `rate`: `-7%`
+- `pitch`: `-2Hz`
+- `ffmpeg`: `loudnorm=I=-16:TP=-1.5:LRA=9`
+- `sampleRate`: `24000Hz`
+- `channels`: `1`
+- `bitrate`: `48k`
+- `format`: `mp3`
+
+没有 DeepSeek Key 时，可用模板口播稿做本地验证：
 
 ```bash
-npm run audio:generate:apple -- --write --mode=academy --rate=145 --from=1 --to=402
+npm run audio:generate:neural -- --script-provider=template --write --day=1 --force
 ```
 
-生成 OpenAI 自然男声 MP3 前，先在环境变量中提供 TTS Key。默认使用 OpenAI TTS，男声 voice 为 `onyx`，也可以通过 `OPENAI_TTS_VOICE` 覆盖：
+审计音频规格：
 
 ```bash
-OPENAI_API_KEY=你的Key npm run audio:generate -- --write --mode=academy --from=1 --to=402
+npm run audio:audit -- --limit=10
 ```
 
-本机 M4A 默认在 `public/audio/lessons/`，OpenAI MP3 默认在 `audio/output/lessons/`。正式上线建议上传 `public/audio/` 到 HTTPS CDN 或对象存储，然后配置：
+MP3 默认输出到 `public/audio/lessons/`。正式上线建议上传 `public/audio/` 到 HTTPS CDN 或对象存储，然后配置：
 
 ```js
 // miniprogram/config/index.js
 module.exports = {
   audio: {
     baseUrl: 'https://cdn.your-domain.com/sobermind/audio',
-    voiceLabel: '自然男声',
+    voiceLabel: 'YunyangNeural 男声',
   },
 };
 ```
